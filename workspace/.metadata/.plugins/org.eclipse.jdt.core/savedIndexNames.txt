@@ -1,2 +1,0 @@
-INDEX VERSION 1.126+/Users/ohurley/Projects/jmstool/msgo/workspace/.metadata/.plugins/org.eclipse.jdt.core
-2293455564.index

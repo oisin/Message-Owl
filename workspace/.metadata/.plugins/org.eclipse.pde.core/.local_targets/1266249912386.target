@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<?pde version="3.5"?>
-
-<target name="Directory /Users/ohurley/Software/Eclipse/platforms/3.5/eclipse">
-<locations>
-<location path="/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse" type="Directory"/>
-</locations>
-</target>
