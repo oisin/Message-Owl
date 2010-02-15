@@ -1,0 +1,2 @@
+# Ignore all of the binary build directories
+*/bin/*
