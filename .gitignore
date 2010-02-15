@@ -1,2 +1,6 @@
 # Ignore all of the binary build directories
 */bin/*
+# Ignore weird MacOS X gear
+.DS_Store
+# Ignore stupid vim swap files
+*.swp
