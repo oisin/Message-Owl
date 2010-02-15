@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.0"?>
+<plugin>
+   <extension-point id="MessageType" name="MessageType" schema="schema/MessageType.exsd"/>
+   <extension-point id="MessageTypeUI" name="MessageTypeUI" schema="schema/MessageTypeUI.exsd"/>
+
+   <extension point="org.eclipse.ui.newWizards">
+      <wizard
+            id="org.fusesource.tools.message.presentation.MessageModelWizardID"
+            name="Message"
+            class="org.fusesource.tools.message.presentation.MessageFileWizard"
+            category="org.fusesource.tools.core.fusecore.newproject"
+            icon="icons/newMessage.gif">
+         <description>%_UI_MessageModelWizard_description</description>
+         <selection class="org.eclipse.core.resources.IResource"/>
+      </wizard>
+   </extension>
+   
+   <extension point="org.eclipse.ui.editors">
+      <editor
+            id="org.fusesource.tools.message.presentation.MessageEditorID"
+            name="%_UI_MessageEditor_label"
+            icon="icons/message.gif"
+            extensions="message"
+            class="org.fusesource.tools.message.presentation.MessageEditor"
+            contributorClass="org.fusesource.tools.message.presentation.MessageActionBarContributor">
+      </editor>
+   </extension>
+	<extension
+    		  point="org.fusesource.tools.message.editor.MessageType">
+   		<MessageType
+           class="org.fusesource.tools.message.types.SimpleMessageTypeProvider"
+           id="org.fusesource.tools.message.types.SimpleMessageTypeProvider"
+           providerid="Standard"
+           type="Message">
+   		</MessageType>
+     <MessageType
+           class="org.fusesource.tools.message.types.TextMessageTypeProvider"
+           id="org.fusesource.tools.message.types.TextMessageTypeProvider"
+           providerid="Standard"
+           supportedFileExtension="txt"
+           type="Text">
+     </MessageType>
+     <MessageType
+           class="org.fusesource.tools.message.types.XMLMessageTypeProvider"
+           id="org.fusesource.tools.message.types.XMLMessageTypeProvider"
+           providerid="Standard"
+           supportedFileExtension="xml"
+           type="XML">
+     </MessageType>
+	</extension>
+</plugin>

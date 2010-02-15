@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.2"?>
+<plugin>
+     <extension
+         point="org.eclipse.wst.server.core.serverTypes">
+      <serverType
+            behaviourClass="org.fusesource.tools.messaging.jms.server.MessagingServerBehaviourDelegate"
+            class="org.fusesource.tools.messaging.jms.server.FUSEJMSServerDelegate"
+            description="Create a FUSE Message Broker"
+            hasConfiguration="true"
+            id="org.fusesource.tools.messaging.jmsServer"
+            initialState="started"
+            name="FUSE Message Broker"
+            runtime="true"
+            runtimeTypeId="org.fusesource.tools.messaging.jmsRuntime"
+            supportsRemoteHosts="true">
+      </serverType>
+   </extension>
+   
+      <extension
+         point="org.eclipse.wst.server.core.runtimeTypes">
+      <runtimeType
+            class="org.fusesource.tools.messaging.jms.server.MessagingRuntimeDelegate"
+            description="Runtime type for the FUSE Message Broker"
+            id="org.fusesource.tools.messaging.jmsRuntime"
+            name="FUSE Message Broker"
+            vendor="FUSE"
+            version="1.0">
+         <moduleType
+               types="fuse.messaging.module"
+               versions="1.0">
+         </moduleType>
+      </runtimeType>
+   </extension>
+   
+      <extension
+         point="org.eclipse.wst.server.ui.wizardFragments">
+      <fragment
+            class="org.fusesource.tools.messaging.server.ui.MessagingRuntimeWizardFragment"
+            id="org.fusesource.tools.messaging.runtimeWizardFragment"
+            typeIds="org.fusesource.tools.messaging.jmsServer">
+      </fragment>
+   </extension>
+   <extension
+         point="org.eclipse.wst.server.ui.serverImages">
+      <image
+            icon="icons/fuse-broker.gif"
+            id="org.fusesource.tools.messaging.server.image"
+            typeIds="org.fusesource.tools.messaging.jmsServer,org.fusesource.tools.messaging.jmsRuntime">
+      </image>
+   </extension>
+	<extension
+		point="org.fusesource.tools.message.editor.MessageTypeUI">
+		<MessageTypeUI
+        	class="org.fusesource.tools.messaging.jms.message.FUSEXMLMessageTypeUI"
+        	id="org.fusesource.tools.messaging.jms.message.XMLMessageTypeUI"
+        	providerid="FUSE Message Broker"
+        	type="XML">
+   		</MessageTypeUI>
+	</extension>
+	<extension
+      point="org.fusesource.tools.message.editor.MessageType">
+   		<MessageType
+           class="org.fusesource.tools.messaging.jms.message.FUSEXMLMessageTypeProvider"
+           id="org.fusesource.tools.messaging.jms.message.XMLMessageTypeProvider"
+           providerid="FUSE Message Broker"
+           supportedFileExtension="xml"
+           type="XML">
+   		</MessageType>
+	</extension>
+	<extension
+         point="org.fusesource.tools.messaging.DestinationUI">
+      	<DestinationUI
+           	 class="org.fusesource.tools.messaging.jms.ui.JMSSenderDestinationDialog"
+           	 id="org.fusesource.tools.messaging.SenderDestinationUI"
+           	 providerid="FUSE Message Broker"
+           	 type="Sender">
+      	</DestinationUI>
+      	<DestinationUI
+           	 class="org.fusesource.tools.messaging.jms.ui.JMSListenerDestinationDialog"
+           	 id="org.fusesource.tools.messaging.ListenerDestinationUI"
+           	 providerid="FUSE Message Broker"
+           	 type="Listener">
+      	</DestinationUI>
+   	</extension>
+</plugin>

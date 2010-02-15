@@ -1,0 +1,324 @@
+<?eclipse version="3.2"?>
+<plugin>
+   <extension-point id="DestinationUI" name="DestinationUI" schema="schema/DestinationUI.exsd"/>
+   <extension point="org.eclipse.wst.common.project.facet.core.facets">
+      <project-facet
+            id="fuse.messaging">
+         <label>
+            Messaging
+         </label>
+         <description>
+            Enables Messaging amongst end-points
+         </description>
+         <member
+               category="org.fusesource.tools.core.fusecore.facets">
+         </member>
+      </project-facet>
+      <project-facet-version
+            facet="fuse.messaging"
+            version="1.0">
+         <action
+               id="org.fusesource.tools.messaging.install"
+               type="install">
+            <delegate
+                  class="org.fusesource.tools.messaging.MsgFacetInstallDelegate">
+            </delegate>
+         </action>
+         <action
+               id="org.fusesource.tools.messaging.Uninstall"
+               type="uninstall">
+            <delegate
+                  class="org.fusesource.tools.messaging.MsgFacetUninstallDelegate">
+            </delegate>
+         </action>
+      </project-facet-version>
+   </extension>
+   	<extension point="org.eclipse.ui.newWizards">
+		<wizard
+        category="org.fusesource.tools.core.fusecore.newproject"
+        class="org.fusesource.tools.messaging.MsgFacetedProjectWizard"
+        finalPerspective="org.fusesource.tools.messaging.FuseMessagingPerspective"
+        icon="icons/messaging_project.gif"
+        id="org.fusesource.tools.messaging.MsgFacetedProjectWizard"
+        name="Messaging Project"
+        preferredPerspectives="org.fusesource.tools.messaging.FuseMessagingPerspective"
+        project="true"/>
+   </extension>
+   
+   <extension
+          point="org.eclipse.ui.navigator.viewer">
+       <viewerContentBinding
+             viewerId="org.eclipse.ui.navigator.ProjectExplorer">
+          <includes>
+             <contentExtension
+                   pattern="message.nodeStructure">
+             </contentExtension>
+          </includes>
+       </viewerContentBinding>
+    </extension>
+	<extension
+          point="org.eclipse.ui.navigator.navigatorContent">
+       <navigatorContent
+             activeByDefault="true"
+             contentProvider="org.fusesource.tools.messaging.cnf.ui.MsgProjectContentProvider"
+             id="message.nodeStructure"
+             labelProvider="org.fusesource.tools.messaging.cnf.ui.MsgProjectLabelProvider"
+             name="Messaging Components">         
+ 			<triggerPoints>
+			 <and>
+                <instanceof value="org.eclipse.core.resources.IProject"/>
+                <test 
+		            forcePluginActivation="true"
+        		    property="org.eclipse.wst.common.project.facet.core.projectFacet"
+            		value="fuse.messaging"/>
+			 </and>
+         </triggerPoints>
+         <possibleChildren>
+            <or>
+               <instanceof value="org.fusesource.tools.messaging.cnf.model.SendersRootComponent"/>
+               <instanceof value="org.fusesource.tools.messaging.cnf.model.ListenersRootComponent"/>
+               <instanceof value="org.fusesource.tools.messaging.cnf.model.SenderComponent"/> 
+               <instanceof value="org.fusesource.tools.messaging.cnf.model.ListenerComponent"/>
+               <instanceof value="org.eclipse.core.resources.IFile"/>
+               <instanceof
+                     value="org.eclipse.core.resources.IFolder">
+               </instanceof>
+            </or>
+         </possibleChildren>
+         <dropAssistant
+                class="org.fusesource.tools.messaging.cnf.actions.SendFileDropAdaptorAssistant"
+                id="org.fusesource.tools.messaging.cnv.actions.SendFileDropAdaptorAssistant">
+             <possibleDropTargets>
+             <or>
+               <instanceof value="org.fusesource.tools.messaging.cnf.model.SenderComponent"/>
+            </or>
+             </possibleDropTargets>
+          </dropAssistant>
+         <commonSorter
+               class="org.fusesource.tools.messaging.cnf.ui.MsgProjectSorter"
+               id="org.fusesource.tools.messaging.cnv.ui.MsgProjectSorter">
+         </commonSorter>
+       </navigatorContent>
+    </extension>
+	<extension
+       	 point="org.eclipse.ui.popupMenus">
+    	<objectContribution
+          	id="org.fusesource.tools.messaging.group.menu"
+          	objectClass="org.fusesource.tools.messaging.cnf.model.BaseGroupComponent" >
+       		<action
+               class="org.fusesource.tools.messaging.cnf.actions.AddDestinationAction"
+               enablesFor="1"
+               icon="icons/add_destination.gif"
+               id="messaging.group.actions"
+               label="Add Destination"
+               tooltip="Adds a destination">
+      	 	</action>
+    	</objectContribution>
+		<objectContribution
+    		 id="org.fusesource.tools.messaging.sender.menu"
+        	 objectClass="org.fusesource.tools.messaging.cnf.model.SenderComponent">
+    		<action
+            class="org.fusesource.tools.messaging.cnf.actions.SendFileAction"
+            enablesFor="1"
+            icon="icons/send_message.gif"
+            id="messaging.sender.menu.sendAction"
+            label="Send File..."
+            tooltip="Choose a file to send">
+       		</action>
+       	</objectContribution>
+       	<objectContribution
+    		 id="org.fusesource.tools.messaging.component.menu"
+        	 objectClass="org.fusesource.tools.messaging.cnf.model.BaseComponent">
+    		<action
+            class="org.fusesource.tools.messaging.cnf.actions.DeleteDestinationAction"
+            enablesFor="1"
+            icon="icons/delete.gif"
+            id="messaging.component.menu.DeleteAction"
+            label="Delete"
+            tooltip="Delete Destination">
+       		</action>
+       	</objectContribution>
+    	<objectContribution
+        	 adaptable="false"
+        	 id="org.fusesource.tools.messaging.server.menu"
+        	 objectClass="org.eclipse.wst.server.core.IServer">
+       		<menu
+        		 id="fuse.server.messaging.menu"
+            	 label="Messaging">
+          		<groupMarker name="group1"></groupMarker>
+       		</menu>
+       		<action
+               class="org.fusesource.tools.messaging.server.ui.MsgServerConnectAction"
+               enablesFor="1"
+               icon="icons/connect.gif"
+               id="fuse.server.messaging.menu.connect"
+               label="Connect"
+               menubarPath="fuse.server.messaging.menu/group1"
+               tooltip="Connects to the Server">
+       		</action>
+       		<action
+               class="org.fusesource.tools.messaging.server.ui.MsgServerDisconnectAction"
+               enablesFor="1"
+               icon="icons/disconnect.gif"
+               id="fuse.server.messaging.menu.Disconnect"
+               label="Disconnect"
+               menubarPath="fuse.server.messaging.menu/group1"
+               tooltip="Disconnect from the Server">
+       		</action>
+    	</objectContribution>
+    	<objectContribution
+    		 id="org.fusesource.tools.messaging.listener.menu"
+        	 objectClass="org.fusesource.tools.messaging.cnf.model.ListenerComponent">
+        	 <action
+                class="org.fusesource.tools.messaging.cnf.actions.OpenMessagesEditorAction"
+                enablesFor="1"
+                icon="icons/open.gif"
+                id="messging.listener.menu.OpenAction"
+                label="Open"
+                tooltip="Opens a Messages Editor">
+      		</action>
+    		<action
+            class="org.fusesource.tools.messaging.cnf.actions.StartListenerAction"
+            enablesFor="1"
+            icon="icons/Start-Listening.gif"
+            id="messging.listener.menu.StartAction"
+            label="Start Listening"
+            tooltip="Starts a listener">
+       		</action>
+    		<action
+            class="org.fusesource.tools.messaging.cnf.actions.StopListenerAction"
+            enablesFor="1"
+            icon="icons/Stop-Listening.gif"
+            id="messging.listener.menu.StopAction"
+            label="Stop Listening"
+            tooltip="Stops a listener">
+       		</action>
+      <action
+            class="org.fusesource.tools.messaging.jms.ui.actions.UnsubscribeAndCloseAction"
+            enablesFor="1"
+            icon="icons/unsubscribe_close.gif"
+            id="messging.listener.menu.UnsubscribeCloseAction"
+            label="Unsubscribe and Close"
+            tooltip="Unsubscribes and Closes a Durable Subscriber">
+      </action>
+       	</objectContribution>
+	 </extension>
+   <extension
+         point="org.eclipse.wst.server.core.moduleFactories">
+      <moduleFactory
+            class="org.fusesource.tools.messaging.server.MessagingModuleFactory"
+            id="org.fusesource.tools.messaging.server.MessagingModuleFactory"
+            projects="true">
+			<moduleType 
+				types="fuse.messaging.module"
+				versions="1.0">
+			</moduleType>
+      </moduleFactory>
+   	</extension>
+	<extension
+     	 point="org.eclipse.wst.server.core.moduleTypes">
+   		<moduleType
+        	 id="fuse.messaging.module"
+        	 name="Messaging Module">
+   		</moduleType>
+	</extension>
+	<extension
+         point="org.eclipse.ui.editors">
+      <editor
+            class="org.fusesource.tools.messaging.editors.MessagesEditor"
+            default="false"
+            icon="icons/listener.gif"
+            id="org.fusesource.tools.messaging.editors.MessagesEditor"
+            name="MessagesEditor">
+      </editor>
+   	</extension>
+   	<extension
+      point="org.fusesource.tools.message.editor.MessageTypeUI">
+   		<MessageTypeUI
+           class="org.fusesource.tools.messaging.jms.ui.JMSSimpleMessageTypeUI"
+           id="org.fusesource.tools.messaging.jms.ui.JMSSimpleMessageTypeUI"
+           providerid="JMS"
+           type="Message">
+   		</MessageTypeUI>
+     <MessageTypeUI
+           class="org.fusesource.tools.messaging.jms.ui.JMSTextMessageTypeUI"
+           id="org.fusesource.tools.messaging.jms.ui.JMSTextMessageTypeUI"
+           providerid="JMS"
+           type="Text">
+     </MessageTypeUI>
+	</extension>
+	<extension
+      point="org.fusesource.tools.message.editor.MessageTypeUI">
+   		<MessageTypeUI
+           class="org.fusesource.tools.messaging.ui.SimpleMessageTypeUI"
+           id="org.fusesource.tools.messaging.ui.SimpleMessageTypeUI"
+           providerid="Standard"
+           type="Message">
+   		</MessageTypeUI>
+     <MessageTypeUI
+           class="org.fusesource.tools.messaging.ui.TextMessageTypeUI"
+           id="org.fusesource.tools.messaging.ui.TextMessageTypeUI"
+           providerid="Standard"
+           type="Text">
+     </MessageTypeUI>
+     <MessageTypeUI
+           class="org.fusesource.tools.messaging.ui.XMLMessageTypeUI"
+           id="org.fusesource.tools.messaging.ui.XMLMessageTypeUI"
+           providerid="Standard"
+           type="XML">
+     </MessageTypeUI>
+	</extension>
+	<extension
+    		  point="org.fusesource.tools.message.editor.MessageType">
+   		<MessageType
+           class="org.fusesource.tools.messaging.jms.message.JMSSimpleMessageTypeProvider"
+           id="org.fusesource.tools.messaging.jms.message.JMSSimpleMessageTypeProvider"
+           providerid="JMS"
+           type="Message">
+   		</MessageType>
+     <MessageType
+           class="org.fusesource.tools.messaging.jms.message.JMSTextMessageTypeProvider"
+           id="org.fusesource.tools.messaging.jms.message.JMSTextMessageTypeProvider"
+           providerid="JMS"
+           supportedFileExtension="txt"
+           type="Text">
+     </MessageType>
+	</extension>
+	<extension
+     	 point="org.eclipse.ui.perspectives">
+        <perspective class="org.fusesource.tools.messaging.MessagingPerspective" 
+        	icon="icons/messaging_perspective.gif" id="org.fusesource.tools.messaging.FuseMessagingPerspective" name="Messaging"/>
+	</extension>
+   	<extension point="org.eclipse.ui.decorators">
+     	<decorator
+         	 adaptable="true"
+        	 class="org.fusesource.tools.messaging.cnf.ui.MsgProjectDecorator"
+        	 id="org.fusesource.tools.messaging.cnv.ui.MsgProjectDecorator"
+       		 label="Messaging Decorator"
+       		 lightweight="false"
+       		 state="true">
+        	<enablement>
+           		<objectClass
+                	 name="org.eclipse.core.resources.IProject">
+           		</objectClass>
+        	</enablement>
+	  	</decorator>
+    </extension>
+    <extension
+          point="org.eclipse.wst.server.ui.serverImages">
+       <image
+             icon="icons/messaging_module.png"
+             id="org.fusesource.tools.messaging.Module.Image"
+             typeIds="fuse.messaging.module">
+       </image>
+    </extension>
+    <extension
+          point="org.eclipse.wst.common.project.facet.ui.images">
+       <image
+             category="org.fusesource.tools.core.fusecore.facets"
+             facet="fuse.messaging"
+             path="icons/messaging_facet.gif"
+             version="1.0">
+       </image>
+    </extension>
+</plugin>

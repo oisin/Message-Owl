@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<genmodel:GenModel xmi:version="2.0"
+    xmlns:xmi="http://www.omg.org/XMI" xmlns:ecore="http://www.eclipse.org/emf/2002/Ecore"
+    xmlns:genmodel="http://www.eclipse.org/emf/2002/GenModel" modelDirectory="/org.fusesource.tools.core.message/src"
+    editDirectory="/org.fusesource.tools.core.message.edit/src" editorDirectory="/org.fusesource.tools.core.message.editor/src"
+    modelPluginID="org.fusesource.tools.core.message" modelName="Message" editPluginClass="org.fusesource.tools.core.message.provider.MessageEditPlugin"
+    editorPluginClass="org.fusesource.tools.core.message.presentation.MessageEditorPlugin"
+    testSuiteClass="org.fusesource.tools.core.message.tests.MessageAllTests" importerID="org.eclipse.xsd.ecore.importer"
+    complianceLevel="5.0" copyrightFields="false">
+  <foreignModel>../../FuseMessaging/schema/message.xsd</foreignModel>
+  <genPackages prefix="Message" basePackage="org.fusesource.tools" resource="XML"
+      disposableProviderFactory="true" ecorePackage="message.ecore#/">
+    <genClasses ecoreClass="message.ecore#//Body">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference message.ecore#//Body/content"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Body/fileRef"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Body/useFileRef"/>
+    </genClasses>
+    <genClasses ecoreClass="message.ecore#//DocumentRoot">
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//DocumentRoot/mixed"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference message.ecore#//DocumentRoot/xMLNSPrefixMap"/>
+      <genFeatures property="None" notify="false" createChild="false" ecoreFeature="ecore:EReference message.ecore#//DocumentRoot/xSISchemaLocation"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference message.ecore#//DocumentRoot/message"/>
+    </genClasses>
+    <genClasses ecoreClass="message.ecore#//Message">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference message.ecore#//Message/properties"/>
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference message.ecore#//Message/body"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Message/providerId"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Message/providerName"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Message/type"/>
+    </genClasses>
+    <genClasses ecoreClass="message.ecore#//Properties">
+      <genFeatures property="None" children="true" createChild="true" ecoreFeature="ecore:EReference message.ecore#//Properties/property"/>
+    </genClasses>
+    <genClasses ecoreClass="message.ecore#//Property">
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Property/isheader"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Property/name"/>
+      <genFeatures createChild="false" ecoreFeature="ecore:EAttribute message.ecore#//Property/value"/>
+    </genClasses>
+  </genPackages>
+</genmodel:GenModel>

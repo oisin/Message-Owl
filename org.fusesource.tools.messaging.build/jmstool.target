@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?pde version="3.5"?>
+
+<target name="Fuse JMS Tool Target Definition">
+<locations>
+<location includeAllPlatforms="false" includeMode="planner" type="InstallableUnit">
+<unit id="org.eclipse.jst.ws.axis2tools.feature.feature.group" version="1.1.0.v200905242110-78-FBpDZRDE6FdPdLYYe"/>
+<unit id="org.eclipse.jpt.feature.feature.group" version="2.2.1.v200908270220-7L7OALFBBoPR9QdeWV1je"/>
+<unit id="org.eclipse.wst.common.fproj.feature.group" version="3.1.1.v200908111817-37718s733L3J555J5H"/>
+<unit id="org.eclipse.jst.common.fproj.enablement.jdt.feature.group" version="3.1.1.v200908111817-37718s733L3J555J5H"/>
+<unit id="org.eclipse.jst.enterprise_ui.feature.feature.group" version="3.1.1.v200908101600-7_7EGrfFQRwRZTMYz07YrGeRz0Tj"/>
+<unit id="org.eclipse.wst.web_ui.feature.feature.group" version="3.1.1.v200908120400-7R77FSpEVw2xXR0CtKvX6bG6a2qU"/>
+<unit id="org.eclipse.wst.xml_ui.feature.feature.group" version="3.1.1.v200907161031-7H6FM_DxtkM-7aeTHKEBbQqcZOZ2"/>
+<unit id="org.eclipse.wst.xsl.feature.feature.group" version="1.0.2.v200908271520-7R7T8sFIhIehWg454rq_U1"/>
+<unit id="org.eclipse.jst.server_adapters.ext.feature.feature.group" version="3.1.1.v20090813-777HFDPCcNBBz0BjJU4BA8"/>
+<unit id="org.eclipse.jst.server_adapters.feature.feature.group" version="3.1.0.v20090311c-20-7w311A1422c"/>
+<unit id="org.eclipse.jst.server_ui.feature.feature.group" version="3.1.1.v20090817-7A2FBa9xFaGovXGKcCWMK2355"/>
+<unit id="org.eclipse.jst.web_ui.feature.feature.group" version="3.1.1.v200908121609-7E77FBfDlwYa_9sdy2q77doi14gl"/>
+<unit id="org.eclipse.wst.server_adapters.feature.feature.group" version="3.1.0.v200906020451-51DFAkF77g7GCNc"/>
+<repository location="http://download.eclipse.org/releases/galileo"/>
+</location>
+</locations>
+<targetJRE path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/J2SE-1.5"/>
+</target>

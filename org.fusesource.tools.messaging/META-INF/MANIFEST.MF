@@ -1,0 +1,54 @@
+Manifest-Version: 1.0
+Bundle-ManifestVersion: 2
+Bundle-Name: Review Plug-in
+Bundle-SymbolicName: org.fusesource.tools.messaging;singleton:=true
+Bundle-Version: 1.3.0
+Bundle-Activator: org.fusesource.tools.messaging.plugin.FuseMessagingPlugin
+Bundle-ActivationPolicy: lazy
+Bundle-RequiredExecutionEnvironment: J2SE-1.5
+Bundle-ClassPath: lib/jms.jar,
+ lib/commons-logging-1.1.jar,
+ .
+Bundle-Vendor: Progress Software Corporation
+Require-Bundle: org.eclipse.core.resources,
+ org.eclipse.core.expressions,
+ org.eclipse.core.runtime,
+ org.eclipse.ui.forms,
+ org.eclipse.ui.navigator,
+ org.eclipse.ui.navigator.resources,
+ org.eclipse.jface.text,
+ org.eclipse.wst.common.modulecore,
+ org.eclipse.wst.server.ui,
+ org.eclipse.wst.server.core,
+ org.eclipse.wst.common.project.facet.ui,
+ org.eclipse.wst.sse.core,
+ org.fusesource.tools.message.edit;bundle-version="[1.3.0, 1.4.0)",
+ org.fusesource.tools.message.editor;bundle-version="[1.3.0, 1.4.0)",
+ org.fusesource.tools.core.message;bundle-version="[1.3.0, 1.4.0)",
+ org.eclipse.wst.sse.ui
+Export-Package: javax.jms,
+ org.apache.commons.logging,
+ org.apache.commons.logging.impl,
+ org.fusesource.tools.messaging,
+ org.fusesource.tools.messaging.cnf.actions,
+ org.fusesource.tools.messaging.cnf.model,
+ org.fusesource.tools.messaging.cnf.ui,
+ org.fusesource.tools.messaging.core,
+ org.fusesource.tools.messaging.editors,
+ org.fusesource.tools.messaging.jms,
+ org.fusesource.tools.messaging.jms.message,
+ org.fusesource.tools.messaging.jms.ui,
+ org.fusesource.tools.messaging.jms.ui.actions,
+ org.fusesource.tools.messaging.plugin,
+ org.fusesource.tools.messaging.preference,
+ org.fusesource.tools.messaging.server,
+ org.fusesource.tools.messaging.server.ui,
+ org.fusesource.tools.messaging.ui,
+ org.fusesource.tools.messaging.ui.dialogs,
+ org.fusesource.tools.messaging.utils
+Import-Package: org.fusesource.tools.core.ui,
+ org.fusesource.tools.core.ui.url.urlchooser,
+ org.fusesource.tools.core.ui.url.urlchooser.filesystemchooser,
+ org.fusesource.tools.core.ui.url.urlchooser.workspacechooser,
+ org.fusesource.tools.core.util
+
