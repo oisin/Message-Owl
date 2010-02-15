@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Eclipse-SourceBundle: org.fusesource.tools.message.edit;version="1.3.0
+ ";roots="."
+Bundle-Version: 1.3.0
+Bundle-Name: %pluginName
+Bundle-ManifestVersion: 2
+Bundle-Localization: plugin
+Bundle-SymbolicName: org.fusesource.tools.message.edit.source;singleto
+ n:=true
+

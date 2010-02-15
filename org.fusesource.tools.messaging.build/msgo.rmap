@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rmap
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns="http://www.eclipse.org/buckminster/RMap-1.0"
+  xmlns:bc="http://www.eclipse.org/buckminster/Common-1.0"
+  xmlns:mp="http://www.eclipse.org/buckminster/MavenProvider-1.0"
+  xmlns:pp="http://www.eclipse.org/buckminster/PDEMapProvider-1.0">
+
+  <locator searchPathRef="msgo.source" pattern="^org\.fusesource\.tools(\..*)"/>
+  <locator searchPathRef="orbit.repository" pattern=".*"/>
+  
+  <!-- Where to find the build-related plugins and features -->
+  <searchPath name="msgo.source">
+    <!-- Check the local file system first, in case a SVN checkout exists -->
+    <provider readerType="local" componentTypes="eclipse.feature,osgi.bundle" mutable="true" source="false">
+      <uri format="{0}/{1}">
+        <bc:propertyRef key="source.root" />
+        <bc:propertyRef key="buckminster.component" />
+      </uri>
+    </provider>
+  </searchPath>
+
+  <!-- Where to find the non-org.eclipse Eclipse dependencies! -->
+  <searchPath name="orbit.repository">
+    <provider readerType="eclipse.import" componentTypes="osgi.bundle" source="false">
+      <uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20100114021427/orbitBundles-R20100114021427.map">
+        <bc:propertyRef key="buckminster.component" />
+      </uri>
+    </provider>
+  </searchPath>
+
+</rmap>
+

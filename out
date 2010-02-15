@@ -1,0 +1,347 @@
+perform 'org.fusesource.tools.messaging.build#site.p2'
+Platform install location: /Users/ohurley/Projects/jmstool/headless
+Target platform provided by class org.eclipse.buckminster.pde.internal.PDETargetPlatform
+Actions to perform (in order)
+  org.fusesource.tools.core:osgi.bundle$1.3.0#eclipse.build
+  org.fusesource.tools.core:osgi.bundle$1.3.0#target.fragments
+  org.fusesource.tools.core:osgi.bundle$1.3.0#bundle.jar
+  org.fusesource.tools.core.message:osgi.bundle$1.3.0#eclipse.build
+  org.fusesource.tools.core.message:osgi.bundle$1.3.0#target.fragments
+  org.fusesource.tools.core.message:osgi.bundle$1.3.0#bundle.jar
+  org.fusesource.tools.message.edit:osgi.bundle$1.3.0#eclipse.build
+  org.fusesource.tools.message.edit:osgi.bundle$1.3.0#target.fragments
+  org.fusesource.tools.message.edit:osgi.bundle$1.3.0#bundle.jar
+  org.fusesource.tools.message.editor:osgi.bundle$1.3.0#eclipse.build
+  org.fusesource.tools.message.editor:osgi.bundle$1.3.0#target.fragments
+  org.fusesource.tools.message.editor:osgi.bundle$1.3.0#bundle.jar
+  org.fusesource.tools.messaging:osgi.bundle$1.3.0#eclipse.build
+  org.fusesource.tools.messaging:osgi.bundle$1.3.0#target.fragments
+  org.fusesource.tools.messaging:osgi.bundle$1.3.0#bundle.jar
+  org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#eclipse.build
+  org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#target.fragments
+  org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#bundle.jar
+  org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#manifest
+  org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#feature.jar
+  org.fusesource.tools.core:osgi.bundle$1.3.0#target.fragments.source
+  org.fusesource.tools.core:osgi.bundle$1.3.0#source.manifest
+  org.fusesource.tools.core:osgi.bundle$1.3.0#source.bundle.jar
+  org.fusesource.tools.core.message:osgi.bundle$1.3.0#target.fragments.source
+  org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.manifest
+  org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.bundle.jar
+  org.fusesource.tools.message.edit:osgi.bundle$1.3.0#target.fragments.source
+  org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.manifest
+  org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.bundle.jar
+  org.fusesource.tools.message.editor:osgi.bundle$1.3.0#target.fragments.source
+  org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.manifest
+  org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.bundle.jar
+  org.fusesource.tools.messaging:osgi.bundle$1.3.0#target.fragments.source
+  org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.manifest
+  org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.bundle.jar
+  org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#target.fragments.source
+  org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.manifest
+  org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.bundle.jar
+  org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#source.manifest
+  org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#source.feature.jar
+  org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#copy.subfeatures
+  org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#copy.plugins
+  org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#manifest
+  org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#site.p2
+init actor: eclipse.build[org.fusesource.tools.core:osgi.bundle$1.3.0#eclipse.build]
+INFO:  [start org.fusesource.tools.core:osgi.bundle$1.3.0#eclipse.build]
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.core_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.core
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.core/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.core_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.core:osgi.bundle$1.3.0#eclipse.build]
+init actor: copyTargetFragments[org.fusesource.tools.core:osgi.bundle$1.3.0#target.fragments]
+Action org.fusesource.tools.core:osgi.bundle$1.3.0#bundle.jar using 'up to date' policy COUNT: Product is up to date
+init actor: eclipse.build[org.fusesource.tools.core.message:osgi.bundle$1.3.0#eclipse.build]
+INFO:  [start org.fusesource.tools.core.message:osgi.bundle$1.3.0#eclipse.build]
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.core.message_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.core.message
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.core.message/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.core.message_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.core.message:osgi.bundle$1.3.0#eclipse.build]
+init actor: copyTargetFragments[org.fusesource.tools.core.message:osgi.bundle$1.3.0#target.fragments]
+Action org.fusesource.tools.core.message:osgi.bundle$1.3.0#bundle.jar using 'up to date' policy COUNT: Product is up to date
+init actor: eclipse.build[org.fusesource.tools.message.edit:osgi.bundle$1.3.0#eclipse.build]
+INFO:  [start org.fusesource.tools.message.edit:osgi.bundle$1.3.0#eclipse.build]
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.message.edit_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.message.edit
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.message.edit/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.message.edit_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.message.edit:osgi.bundle$1.3.0#eclipse.build]
+init actor: copyTargetFragments[org.fusesource.tools.message.edit:osgi.bundle$1.3.0#target.fragments]
+Action org.fusesource.tools.message.edit:osgi.bundle$1.3.0#bundle.jar using 'up to date' policy COUNT: Product is up to date
+init actor: eclipse.build[org.fusesource.tools.message.editor:osgi.bundle$1.3.0#eclipse.build]
+INFO:  [start org.fusesource.tools.message.editor:osgi.bundle$1.3.0#eclipse.build]
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.message.editor_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.message.editor
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.message.editor/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.message.editor_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.message.editor:osgi.bundle$1.3.0#eclipse.build]
+init actor: copyTargetFragments[org.fusesource.tools.message.editor:osgi.bundle$1.3.0#target.fragments]
+Action org.fusesource.tools.message.editor:osgi.bundle$1.3.0#bundle.jar using 'up to date' policy COUNT: Product is up to date
+init actor: eclipse.build[org.fusesource.tools.messaging:osgi.bundle$1.3.0#eclipse.build]
+INFO:  [start org.fusesource.tools.messaging:osgi.bundle$1.3.0#eclipse.build]
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.messaging_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.messaging
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.messaging/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.messaging_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.messaging:osgi.bundle$1.3.0#eclipse.build]
+init actor: copyTargetFragments[org.fusesource.tools.messaging:osgi.bundle$1.3.0#target.fragments]
+Action org.fusesource.tools.messaging:osgi.bundle$1.3.0#bundle.jar using 'up to date' policy COUNT: Product is up to date
+init actor: eclipse.build[org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#eclipse.build]
+INFO:  [start org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#eclipse.build]
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.messaging.jms_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.messaging.jms
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.messaging.jms/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.messaging.jms_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#eclipse.build]
+init actor: copyTargetFragments[org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#target.fragments]
+Action org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#bundle.jar using 'up to date' policy COUNT: Product is up to date
+Action org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#feature.jar using 'up to date' policy COUNT: Product is up to date
+init actor: copyTargetFragments[org.fusesource.tools.core:osgi.bundle$1.3.0#target.fragments.source]
+Action org.fusesource.tools.core:osgi.bundle$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.core:osgi.bundle$1.3.0#source.bundle.jar using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: ant[org.fusesource.tools.core:osgi.bundle$1.3.0#source.bundle.jar]
+  buildFileId=buckminster.pdetasks
+  targets=create.bundle.jar
+INFO:  [start org.fusesource.tools.core:osgi.bundle$1.3.0#source.bundle.jar]
+  Product alias = action.output
+  Product base = ${buckminster.output}/source.jar/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.core_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.core
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.core/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.core_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.core:osgi.bundle$1.3.0#source.bundle.jar]
+init actor: copyTargetFragments[org.fusesource.tools.core.message:osgi.bundle$1.3.0#target.fragments.source]
+Action org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.bundle.jar using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: ant[org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.bundle.jar]
+  buildFileId=buckminster.pdetasks
+  targets=create.bundle.jar
+INFO:  [start org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.bundle.jar]
+  Product alias = action.output
+  Product base = ${buckminster.output}/source.jar/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.core.message_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.core.message
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.core.message/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.core.message_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.core.message:osgi.bundle$1.3.0#source.bundle.jar]
+init actor: copyTargetFragments[org.fusesource.tools.message.edit:osgi.bundle$1.3.0#target.fragments.source]
+Action org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.bundle.jar using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: ant[org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.bundle.jar]
+  buildFileId=buckminster.pdetasks
+  targets=create.bundle.jar
+INFO:  [start org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.bundle.jar]
+  Product alias = action.output
+  Product base = ${buckminster.output}/source.jar/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.message.edit_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.message.edit
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.message.edit/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.message.edit_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.message.edit:osgi.bundle$1.3.0#source.bundle.jar]
+init actor: copyTargetFragments[org.fusesource.tools.message.editor:osgi.bundle$1.3.0#target.fragments.source]
+Action org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.bundle.jar using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: ant[org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.bundle.jar]
+  buildFileId=buckminster.pdetasks
+  targets=create.bundle.jar
+INFO:  [start org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.bundle.jar]
+  Product alias = action.output
+  Product base = ${buckminster.output}/source.jar/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.message.editor_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.message.editor
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.message.editor/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.message.editor_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.message.editor:osgi.bundle$1.3.0#source.bundle.jar]
+init actor: copyTargetFragments[org.fusesource.tools.messaging:osgi.bundle$1.3.0#target.fragments.source]
+Action org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.bundle.jar using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: ant[org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.bundle.jar]
+  buildFileId=buckminster.pdetasks
+  targets=create.bundle.jar
+INFO:  [start org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.bundle.jar]
+  Product alias = action.output
+  Product base = ${buckminster.output}/source.jar/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.messaging_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.messaging
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.messaging/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.messaging_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.messaging:osgi.bundle$1.3.0#source.bundle.jar]
+init actor: copyTargetFragments[org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#target.fragments.source]
+Action org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.bundle.jar using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: ant[org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.bundle.jar]
+  buildFileId=buckminster.pdetasks
+  targets=create.bundle.jar
+INFO:  [start org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.bundle.jar]
+  Product alias = action.output
+  Product base = ${buckminster.output}/source.jar/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.messaging.jms_1.3.0-osgi.bundle/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.messaging.jms
+  buckminster.component.type=osgi.bundle
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.3.0
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.messaging.jms/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.messaging.jms_1.3.0-osgi.bundle
+INFO:  [end org.fusesource.tools.messaging.jms:osgi.bundle$1.3.0#source.bundle.jar]
+Action org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#source.manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.messaging.feature:eclipse.feature$1.3.0#source.feature.jar using 'up to date' policy COUNT: Product is up to date
+Action org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#copy.subfeatures using 'up to date' policy MAPPER: Product is up to date
+Action org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#copy.plugins using 'up to date' policy MAPPER: Product is up to date
+Action org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#manifest using 'up to date' policy DEFAULT: Product is up to date
+Action org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#site.p2 using 'up to date' policy DEFAULT: Rebuild needed: Product has folders
+init actor: p2SiteGenerator[org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#site.p2]
+INFO:  [start org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#site.p2]
+  Product base = ${buckminster.output}/site.p2/
+  buckminster.temp=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/org.fusesource.tools.messaging.build_1.0.0-eclipse.feature/temp
+  workspace.root=/Users/ohurley/Projects/jmstool/msgo/workspace
+  generator.buildTimestamp.format=2010-02-15T16:26:02.315+0000
+  target.location=/Users/ohurley/Software/Eclipse/platforms/3.5/eclipse
+  target.os=macosx
+  target.nl=en_US
+  buckminster.component=org.fusesource.tools.messaging.build
+  buckminster.component.type=eclipse.feature
+  eclipse.home=/Users/ohurley/Projects/jmstool/headless
+  buckminster.version=1.0.0.qualifier
+  localhost=chutney
+  target.ws=carbon
+  target.arch=x86
+  buckminster.home=/Users/ohurley/Projects/jmstool/msgo/org.fusesource.tools.messaging.build/
+  buckminster.output=/var/folders/75/75FPKIOLFjWR8trbcnk53E+++TM/-Tmp-/buckminster/build/org.fusesource.tools.messaging.build_1.0.0-eclipse.feature
+INFO:  [end org.fusesource.tools.messaging.build:eclipse.feature$1.0.0.qualifier#site.p2]
+Doing full workspace refresh
+Waiting for jobs to end
