@@ -1,11 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.2"?>
 <plugin>
-<extension
-         point="org.eclipse.ui.newWizards">
-      <category
-            id="org.progress.tools.category"
-            name="%progress.category.name">
-      </category>
-</extension>
 </plugin>

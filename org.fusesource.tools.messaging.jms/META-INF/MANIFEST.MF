@@ -1,10 +1,10 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: ActiveMQMessagingPlugin Plug-in
+Bundle-Name: %pluginName
 Bundle-SymbolicName: org.fusesource.tools.messaging.jms;singleton:=true
 Bundle-Version: 1.3.0
 Bundle-RequiredExecutionEnvironment: J2SE-1.5
-Bundle-Vendor: Progress Software Corporation
+Bundle-Vendor: %providerName
 Require-Bundle: org.eclipse.jface.text,
  org.eclipse.swt,
  org.eclipse.jface,
@@ -21,9 +21,9 @@ Require-Bundle: org.eclipse.jface.text,
 Export-Package: org.fusesource.tools.messaging.jms,
  org.fusesource.tools.messaging.jms.server
 Bundle-ClassPath: .,
- lib/activemq-core-5.2.0.2-fuse.jar,
- lib/geronimo-j2ee-management_1.0_spec-1.0.jar,
  lib/geronimo-jms_1.1_spec-1.1.1.jar,
  lib/commons-logging-1.1.jar,
- lib/geronimo-jta_1.0.1B_spec-1.0.1.jar
+ lib/geronimo-jta_1.0.1B_spec-1.1.1.jar,
+ lib/geronimo-j2ee-management_1.0_spec-1.1.jar,
+ lib/activemq-core-5.3.0.jar
 Import-Package: org.fusesource.tools.core.ui

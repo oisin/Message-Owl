@@ -33,7 +33,6 @@ public class FuseJMSConnection extends JMSConnection {
 			jmsConnection.setClientID(name);
 			jmsConnection.start();
 			createSession();
-			System.out.println("FUSE JMS Connection, Session created successfully.");
 		} catch (JMSException e) {
 			throw new MessagingException(e.getMessage(), e.getCause());
 		}

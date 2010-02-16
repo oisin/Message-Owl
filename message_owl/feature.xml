@@ -1,20 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="message_owl"
-      label="Message Owl JMS Queue and Topic tool build feature"
+      label="Message Owl JMS Queue and Topic tool Build Feature"
       version="0.5.0.qualifier"
       provider-name="The Fuse Forge">
 
-   <description url="http://www.example.com/description">
-      [Enter Feature Description here.]
+   <description url="http://msgo.fusesource.org">
+      Message Owl is an Eclipse based tool that helps Eclipse-wielding humans to interact with JMS-based message queues.
    </description>
 
-   <copyright url="http://www.example.com/copyright">
-      [Enter Copyright Description here.]
+   <copyright>
+      Copyright (c) Progress Software Corporation 2007-2010
    </copyright>
 
-   <license url="http://www.example.com/license">
-      [Enter License Description here.]
+   <license>
+      Message Owl is made available under the EPL 1.0
+Message Owl contains third-party items that are made available under their respective licenses.
    </license>
 
    <includes

@@ -8,12 +8,16 @@ package org.fusesource.tools.messaging.ui;
 
 import java.util.Map;
 
+import org.eclipse.core.runtime.IStatus;
+import org.eclipse.core.runtime.Status;
 import org.eclipse.wst.server.core.IServer;
 import org.eclipse.wst.server.core.ServerCore;
+import org.fusesource.tools.messaging.MessagingException;
 import org.fusesource.tools.messaging.core.IConnection;
 import org.fusesource.tools.messaging.core.IDestination;
 import org.fusesource.tools.messaging.core.IDestinationType;
 import org.fusesource.tools.messaging.core.IProvider;
+import org.fusesource.tools.messaging.plugin.FuseMessagingPlugin;
 import org.fusesource.tools.messaging.server.MessagingServersUtil;
 
 
@@ -36,18 +40,17 @@ public class DestinationUtil {
 	}
 
 	public static IDestination createDestination(IDestinationType type, String name, IProvider provider) {
-		try {
-			IConnection connection = getConnection(provider);
-			if (connection != null) {
-				System.out.println("creating destination...");
-				return connection.createDestination(type, name);
-			} else {
-				System.out.println("[&&&&&&&&&&&] Connection is NULL");
+		IDestination destination = null;
+		IConnection connection = getConnection(provider);
+		if (connection != null) {
+			try {
+				destination = connection.createDestination(type, name);
+			} catch (MessagingException e) {
+				IStatus status = new Status(IStatus.ERROR,FuseMessagingPlugin.PLUGIN_ID,"Failed to create " + type + " destination '" + name + "'.", e);
+				FuseMessagingPlugin.getDefault().getLog().log(status);
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return null;
+		} 
+		return destination;
 	}
 
 }

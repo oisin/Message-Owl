@@ -1,11 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <feature
       id="org.fusesource.tools.messaging.feature"
-      label="Fuse JMS Tool"
+      label="Message Owl JMS Tool"
       version="1.3.0"
       provider-name="The Fuse Forge">
 
-   <description>
+   <description url="http://msgo.fusesource.org">
       %description
    </description>
 
@@ -18,49 +18,50 @@
    </license>
 
    <url>
-      <update label="The Fuse Forge Update Site" url="http://repo.fusesource.com/forge/updates"/>
+      <update label="Message Owl Update Site" url="http://repo.fusesource.com/projects/msgo/dev/updates"/>
+      <discovery label="Message Owl Developer Updates" url="http://repo.fusesource.com/projects/msgo/dev/updates"/>
    </url>
 
    <plugin
          id="org.fusesource.tools.core"
          download-size="0"
          install-size="0"
-         version="1.3.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.fusesource.tools.core.message"
          download-size="0"
          install-size="0"
-         version="1.3.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.fusesource.tools.message.edit"
          download-size="0"
          install-size="0"
-         version="1.3.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.fusesource.tools.message.editor"
          download-size="0"
          install-size="0"
-         version="1.3.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.fusesource.tools.messaging"
          download-size="0"
          install-size="0"
-         version="1.3.0"
+         version="0.0.0"
          unpack="false"/>
 
    <plugin
          id="org.fusesource.tools.messaging.jms"
          download-size="0"
          install-size="0"
-         version="1.3.0"
+         version="0.0.0"
          unpack="false"/>
 
 </feature>
