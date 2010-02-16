@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="org.fusesource.tools.messaging.build"
-      label="Fuse JMS Tool Build Feature"
-      version="1.0.0.qualifier"
+      id="message_owl"
+      label="Message Owl JMS Queue and Topic tool build feature"
+      version="0.5.0.qualifier"
       provider-name="The Fuse Forge">
 
    <description url="http://www.example.com/description">

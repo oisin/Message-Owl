@@ -1,0 +1,4 @@
+setpref targetPlatformPath=${platform}
+import --properties ${source}/${feature}/buckminster.properties ${source}/${feature}/msgo.cquery 
+build --properties ${source}/${feature}/buckminster.properties 
+perform --properties ${source}/${feature}/buckminster.properties ${feature}#site.p2.zip  

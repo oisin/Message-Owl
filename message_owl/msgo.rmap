@@ -7,6 +7,7 @@
   xmlns:pp="http://www.eclipse.org/buckminster/PDEMapProvider-1.0">
 
   <locator searchPathRef="msgo.source" pattern="^org\.fusesource\.tools(\..*)"/>
+  <locator searchPathRef="msgo.source" pattern="^message_owl"/>
   <locator searchPathRef="orbit.repository" pattern=".*"/>
   
   <!-- Where to find the build-related plugins and features -->
