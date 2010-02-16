@@ -14,7 +14,7 @@
     <!-- Check the local file system first, in case a SVN checkout exists -->
     <provider readerType="local" componentTypes="eclipse.feature,osgi.bundle" mutable="true" source="false">
       <uri format="{0}/{1}">
-        <bc:propertyRef key="source.root" />
+        <bc:propertyRef key="source" />
         <bc:propertyRef key="buckminster.component" />
       </uri>
     </provider>
@@ -22,6 +22,15 @@
 
   <!-- Where to find the non-org.eclipse Eclipse dependencies! -->
   <searchPath name="orbit.repository">
+    <!-- First try a local directory to see if it exists on disk here -->
+    <provider readerType="local" componentTypes="osgi.bundle" source="false">
+      <uri format="file://{0}/eclipse/plugins/{1}">
+        <bc:propertyRef key="orbit" />
+        <bc:propertyRef key="buckminster.component" />
+      </uri>
+    </provider>
+
+    <!-- If cannot resolve locally, then go to the Orbit site and resolve using map file -->
     <provider readerType="eclipse.import" componentTypes="osgi.bundle" source="false">
       <uri format="http://download.eclipse.org/tools/orbit/downloads/drops/R20100114021427/orbitBundles-R20100114021427.map">
         <bc:propertyRef key="buckminster.component" />
