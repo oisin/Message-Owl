@@ -35,7 +35,7 @@ buckminster=
 # This is the line that kicks it all off
 if [ ${clean} = no ]
 then
-  ${buckminster}buckminster -data ${build} ${debug} -S ${source}/${build_feature}/buckminster.script -vmargs -Dsource=${source} -Dplatform=${platform} -Dorbit=${orbit} -Dbuild=${build} -Dfeature=${build_feature}
+  ${buckminster}buckminster -data ${build} ${debug} -S ${source}/${build_feature}/buckminster.script -vmargs -Xmx1024m -Dsource=${source} -Dplatform=${platform} -Dorbit=${orbit} -Dbuild=${build} -Dfeature=${build_feature}
   if [ -f ${build}/output/${build_feature}*/*.zip ]
   then
     mv ${build}/output/${build_feature}*/*.zip ${build} && echo "Zipped p2 update site is available in ${build} directory"
