@@ -2,7 +2,7 @@
 <feature
       id="org.fusesource.tools.messaging.feature"
       label="Message Owl JMS Tool"
-      version="1.3.0"
+      version="0.5.0.qualifier"
       provider-name="The Fuse Forge">
 
    <description url="http://msgo.fusesource.org">
