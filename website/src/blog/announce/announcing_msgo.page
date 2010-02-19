@@ -1,0 +1,16 @@
+---
+blog_post: true
+title: Introducing the Message Owl
+author: Oisin Hurley
+author_url: http://oisinh.wordpress.com
+created_at: 2010-02-15 20:31:40.000000 -00:00
+--- 
+
+Announcing Message Owl - an Eclipse-based tool for human interaction with JMS Queues and 
+Topics.
+
+We're just in the planning stage here and getting our house in order for consumption with
+build instructions, downloads and the like. The first developer download should be available
+towards the end of February 2010. 
+
+Until then you can still browse the [source](../source.html) as it currently stands.

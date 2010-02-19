@@ -1,0 +1,75 @@
+---
+title: Building
+--- name:overview
+
+# How to Build {project_name:}
+The way most developers get started contributing to a project.
+
+--- name:content 
+
+## Building 
+
+{project_name:} uses [Buckminster](http://wiki.eclipse.org/index.php/Buckminster_Project) as its build tool. If you don't fancy using Buckminster you can use your IDE directly or [Download](download.html) the binaries and sources from our update site.
+
+### Prequisites
+
+*Required:*
+* Java 1.5
+* An installed  Eclipse JEE package from [Eclipse 3.5](http://www.eclipse.org/downloads/)
+* Get the latest [Source](source.html)
+* If you are doing a non-IDE build, download and [install Buckminster](build/buckminster.html)
+
+### Build set-up
+
+You should have three directory locations 
+
+ * your Eclipse JEE package installation directory (*platform*),
+ * your Buckminster installation directory (*buckminster*),
+ * and your cloned git repository (*source*).
+
+The incantations below assume that the Buckminster start script is on your PATH for execution.
+
+ * Build from the *source* directory
+
+<code>
+    $ git clone git://forge.fusesource.com/msgo.git <br/>
+    $ cd msgo <br/>
+    $ export PATH=$PATH:<em>buckminster</em> <br/>
+    $ ./build.sh -p <em>platform</em>
+</code>
+   
+At this point you will see a pile of compiler warnings going by - there are some deprecation warnings as well as warnings related to use of non-parameterized generics. If these are bothering you, remember we love [contributions](contributing.html)!
+
+Right at the end of the build you should see
+
+<p><code>
+    Zipped p2 update site is available in <em>&lt;some directory&gt;</em> directory
+</code></p>
+
+this means that the p2 update site build was successful, so if you look in the *`<some directory>`* directory, you should see a file called something like
+
+<p><code>
+    message_owl_0.5.0.201002161408-12-cMujn.zip
+</code></p>
+
+which contains the update site.
+
+### Build script options
+
+There's a number of options you can provide to `build.sh` which can be useful.
+
+* *-c* : clean the build directory 
+* *-fc* : force-clean the build directory (basically `rm -rf` - be careful!)
+* *-p platform-directory* : use this platform directory - this is the directory that contains the `plugins` directory, not the one that might contain the `eclipse` directory! This is an optional argument, it defaults to the `platform/eclipse` directory in the cloned repo.
+* *-b orbit-directory* : Orbit is an Eclipse project that contains non-`eclipse.org` stuff. If you have downloaded Orbit to your local disk, you can set this and it will go locally to get bundles it needs. This is an optional argument, if the build doesn't find the Orbit stuff locally, it will go hit the Eclipse Orbit website to pull the bundles it needs. You will need this option if you are building offline.
+* *-o build-directory* : Where to put the build directory. This is optional too, and it defaults to a directory called `build` in the cloned repo.
+* *-d* : Switch on debug for the build. You will get a lot more information about what is going on, but this is really useful when the build explodes for no apparent reason.
+* *-f feature-name* : This means change the name of the build feature. Leave it alone. I probably shouldn't even mention it. To find out what it means, you will need to read more about how Buckminster uses a root build feature.
+
+### Using an IDE
+
+Message Owl is composed entirely of Eclipse bundles, so building inside the IDE is very easy. You can use [EGit](http://www.eclipse.org/egit) to clone the repository in the workbench, and it will build automatically, or you can use the command line client to clone and use the Eclipse <tt>File &gt; Import...</tt> action to import the projects into the Eclipse workspace.
+ 
+### See Also
+
+* [Source](source.html)

@@ -1,0 +1,13 @@
+---
+title: This is an Eclipse Update Site!
+--- name:overview
+
+# {project_name:}
+You have found your way to an Eclipse Update site!
+
+--- name:content
+
+You are probably not seeing what you expect here - this page is consumable not by a browser, but by the update action of an Eclipse installation. 
+
+In your Eclipse IDE, do <tt>Help &gt; Install New Software</tt> then add this page as an update site. You should then be able to see the [Message Owl](http://msgo.fusesource.org) updates.
+
