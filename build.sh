@@ -13,10 +13,16 @@ debug=
 clean=no
 force=i
 
+# No buckminster on the PATH? Put its location here. Make sure there is a
+# slash (/) on the end of the path or the expansion won't work correctly.
+
+buckminster=
+
 while [ $# -gt 0 ] ; do
   case $1 in
     -p) shift; platform=$1 ;;
     -b) shift; orbit=$1 ;;
+    -k) shift; buckminster=$1 ;;
     -o) shift; build=$1 ;;
     -f) shift; build_feature=$1;;
     -d) debug="-L DEBUG" ;;
@@ -27,10 +33,6 @@ while [ $# -gt 0 ] ; do
   shift
 done
 
-# No buckminster on the PATH? Put its location here. Make sure there is a
-# slash (/) on the end of the path or the expansion won't work correctly.
-
-buckminster=
 
 # This is the line that kicks it all off
 if [ ${clean} = no ]
