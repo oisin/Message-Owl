@@ -1,0 +1,24 @@
+---
+title: Installing Buckminster
+--- name:overview
+
+# How to Install Buckminster
+This tool builds Eclipse update sites without needing Ant, Maven, or an IDE.
+
+--- name:content 
+
+## Building 
+
+{project_name:} uses [Buckminster](http://wiki.eclipse.org/Buckminster_Project) as its build tool. If you don't fancy using Buckminster you can use your IDE directly or [Download](download.html) the binaries and sources from our update site.
+
+### Installing Buckminster
+
+[Buckminster](http://wiki.eclipse.org/Buckminster_Project) is a modular Java tool that does what is termed *materialization*. This is shorthand for finding out dependencies, getting stuff from various repositories and sources, building it and then assembling it into whatever form you want. The modularity aspect can make it a little confusing to install first time around - you start with a basic core then add layers of capabilities by updating from various p2 sites (it's an [Equinox](http://www.eclipse.org/equinox) application).
+
+But we are going to skip all that. [Message Owl](index.html) makes things a little bit easier by offering fully-configured downloads of Buckminster at 
+
+* [Buckminster zip for Eclipse 3.5](http://repo.fusesource.com/projects/msgo/dev/tools/buckminster-3.5.zip) 
+* Buckminster zip for Eclipse 3.6 *not available just yet!*
+
+Download and unpack the zip for the version of Eclipse platform that you are using, then return to the [build instructions](building.html).
+

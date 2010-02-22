@@ -4,3 +4,8 @@
 .DS_Store
 # Ignore stupid vim swap files
 *.swp
+# Ignore the default-named 'build' directory
+build
+# Ignore webgen output directories
+out
+webgen.cache

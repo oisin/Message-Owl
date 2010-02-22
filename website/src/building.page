@@ -17,7 +17,7 @@ The way most developers get started contributing to a project.
 * Java 1.5
 * An installed  Eclipse JEE package from [Eclipse 3.5](http://www.eclipse.org/downloads/)
 * Get the latest [Source](source.html)
-* If you are doing a non-IDE build, download and [install Buckminster](build/buckminster.html)
+* If you are doing a non-IDE build, download and [install Buckminster](buckminster.html)
 
 ### Build set-up
 
@@ -62,6 +62,7 @@ There's a number of options you can provide to `build.sh` which can be useful.
 * *-fc* : force-clean the build directory (basically `rm -rf` - be careful!)
 * *-p platform-directory* : use this platform directory - this is the directory that contains the `plugins` directory, not the one that might contain the `eclipse` directory! This is an optional argument, it defaults to the `platform/eclipse` directory in the cloned repo.
 * *-b orbit-directory* : Orbit is an Eclipse project that contains non-`eclipse.org` stuff. If you have downloaded Orbit to your local disk, you can set this and it will go locally to get bundles it needs. This is an optional argument, if the build doesn't find the Orbit stuff locally, it will go hit the Eclipse Orbit website to pull the bundles it needs. You will need this option if you are building offline.
+* *-k buck-directory* : If you don't have a copy of Buckminster on your PATH, you can specify its location using this option
 * *-o build-directory* : Where to put the build directory. This is optional too, and it defaults to a directory called `build` in the cloned repo.
 * *-d* : Switch on debug for the build. You will get a lot more information about what is going on, but this is really useful when the build explodes for no apparent reason.
 * *-f feature-name* : This means change the name of the build feature. Leave it alone. I probably shouldn't even mention it. To find out what it means, you will need to read more about how Buckminster uses a root build feature.
