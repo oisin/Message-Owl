@@ -13,7 +13,6 @@ This page contains all the frequently asked questions about the {project_name:} 
 <div style="font-size: 10pt; clear: left; padding: 5px;">
 {menu: {used_nodes: fragments, min_levels: 4, max_levels: 6}}
 <div>
-
 --- name:content pipeline:tags,markdown,fragments
 
 ## General Questions
@@ -22,11 +21,7 @@ General questions on the *{project_name:}* project.
 
 ### What is the license?
 
-The license is ...
-
-### How do I get support?
-
-See the [support guide](support.html) for more details.
+The Message Owl code is licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html). Some of the Message Owl bundles may contain a mixture of differently licensed code, for example a jar file or classes from an Apache project, licensed under the compatible Apache Software License. Each Eclipse plug-in bundle contains an about.html file that contains the licensing details of the bundle content, so check that for details.
 
 ### How do I contribute or become a committer?
 
@@ -36,10 +31,11 @@ We love [contributions](contributing.html)! More details on how to contribute an
 
 For details on how to edit the website and how it works see [How the Site works](site.html)
 
-### Using {project_name:}
+### Where do I report bugs?
 
-### How do I get started?
+We have a [JIRA issue tracker](http://fusesource.com/issues/browse/MSGO) for that, please enter your bug there.
 
-## Errors
+### Is there a mailing list I can join or view?
 
+Information about how to stay in touch can be found on the [community page](community.html).
 

@@ -42,6 +42,17 @@ img {
 
 .wrapper { min-width: 762px; width: 762px; margin: 0 auto; }
 
+#footer { width: 100%; float: left;
+    font-family: Verdana,Arial,Helvetica,sans-serif; 
+    text-align:center; padding: 8px;
+    color: #000000; 
+	font-size: 10pt; 
+    bottom: 0px;
+}
+#footer a { color: #b22222; }
+#footer ul { display: block; margin:0; padding:0; }
+#footer li { list-style-type: none; display: inline; margin:0 5px 0 5px;}
+
 #navigation { width: 100%; float: left;
     font-family: Verdana,Arial,Helvetica,sans-serif; 
     background: #000000; 

@@ -67,8 +67,8 @@ template: ~
 <% end %>
 
   <div id='footer'>
-      <br/>
-      <br/>
+      <br/> <br/>
+      <div class='wrapper'/>
   </div>
 
 </body>
