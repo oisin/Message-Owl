@@ -33,6 +33,8 @@ import org.fusesource.tools.messaging.core.ISender;
  * 
  */
 public class MsgProjectContentProvider implements ITreeContentProvider {
+	public static String SENDERS_TEXT = "Producers";
+	public static String LISTENERS_TEXT = "Consumers";
 	private StructuredViewer viewer;
 	private MsgProjectChangeHandler changeHandler;
 	private MessageChangeListener msgChangeListener;
@@ -59,8 +61,10 @@ public class MsgProjectContentProvider implements ITreeContentProvider {
 		IFile listenersFile = ((IProject) parentElement)
 				.getFile(IModelConstants.LISTENERS_FILE_PATH);
 
-		return new Object[] { new SendersRootComponent("Senders", sendersFile),
-				new ListenersRootComponent("Listeners", listenersFile) };
+		return new Object[] { 
+				new SendersRootComponent(SENDERS_TEXT, sendersFile),
+				new ListenersRootComponent(LISTENERS_TEXT, listenersFile) 
+		};
 	}
 
 	private Object[] getSenderNodes(SendersRootComponent root) {
