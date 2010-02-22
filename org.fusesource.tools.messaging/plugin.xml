@@ -33,9 +33,12 @@
          </action>
       </project-facet-version>
    </extension>
+   <extension point="org.eclipse.ui.newWizards">
+      <category id="org.fusesource.tools.messageOwlCategory" name="Message Owl" />
+   </extension>
    	<extension point="org.eclipse.ui.newWizards">
 		<wizard
-        category="org.fusesource.tools.core.fusecore.newproject"
+        category="org.fusesource.tools.messageOwlCategory"
         class="org.fusesource.tools.messaging.MsgFacetedProjectWizard"
         finalPerspective="org.fusesource.tools.messaging.FuseMessagingPerspective"
         icon="icons/messaging_project.gif"

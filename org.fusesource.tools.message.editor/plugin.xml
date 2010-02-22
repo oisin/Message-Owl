@@ -9,7 +9,7 @@
             id="org.fusesource.tools.message.presentation.MessageModelWizardID"
             name="Message"
             class="org.fusesource.tools.message.presentation.MessageFileWizard"
-            category="org.fusesource.tools.core.fusecore.newproject"
+            category="org.fusesource.tools.messageOwlCategory"
             icon="icons/newMessage.gif">
          <description>%_UI_MessageModelWizard_description</description>
          <selection class="org.eclipse.core.resources.IResource"/>
