@@ -19,37 +19,43 @@ The *{project_name:}* documentation and site is created using [WebGen](http://we
 # Editing the source code
 </div>
 <div class="right" markdown="1">
-If you [grab the source code](source.html) you can get the site source in the *webgen* directory.
+If you [grab the source code](source.html) you can get the site source in the *website* directory.
 If you have webgen installed (see below for instructions) then you can build the website from [the code](source.html) as follows
 
-    cd {project_id:}/webgen
+    cd {project_id:}/website
     webgen
   
-If you want to edit the files in your text editor and be able to immediately see the site re-rendered in a browser then use
+The site will then be available in the *out* directory.
 
-    webgen
+If you want to edit the files in your text editor and be able to immediately see the site re-rendered in a browser then use [rake](http://rake.rubyforge.org/) to run the site construction in a loop whenever it detects a file change.
+
+    cd {project_id:}/website
+    rake auto
     
-You can now surf the site and see changes immediately.
-
-If you are on OS X then we highly recommend [TextMate](http://macromates.com/) as a great editor which supports Textile and Markdown
+You can now surf the site and see changes immediately. *Caveat* - sometimes rake doesn't rebuild the site each time. I'm not sure why that happens, but there are situations when it seems to miss the file change and you may need to interrupt the rake command and re-run it.
 </div>
 
 <div class="left" markdown="1">
-# Editing the site in your browser
+# Easy deploy using WebDAV
 </div>
 <div class="right" markdown="1">
-The generated HTML has a link at the bottom of the page to <b>Edit This Page!</b> as well as supporting the [Universal Edit Button](http://universaleditbutton.org/) if your browser supports it. There is also a link to the page source if you are wondering where it is kept in subversion.
+A quick and easy way to deploy the site files is to mount the site location using the WebDAV capabilities of your OS. I develop on MacOS and if I have some small changes to make to the site, I mount it remotely as the *out* directory of the website build. This renders directly to the site. *Caveat* this is you editing the site *live*, so don't mess it up!
 
-If you use FireFox you might want to install the [Edit Page Plugin](https://addons.wikihow.com/univedit.xpi)
+    cd {project_id:}/website
+    mount -t webdav http://fusesource.com/forge/dav/msgo out
 
-This feature depends on having a restful resource which will accept posted changes to the page.
+To do the webdav mount you will need to authenticate yourself as a Message Owl committer.
+
+If you don't want to hack on the live site, and it's a nice plan not to, just mount the site location onto another directory on your disk. Then, when you have finished making site tweaks, just copy all of the content of the *out* directory to this mount point to deploy. Make sure you copy the content of the *out* directory and not the content of the *src* directory! It's been done before!
+
+*Note* - if you are using MacOS X, there's something the matter with DAV copying using the Finder. If you attempt to copy from one Finder window to another which is looking at a WebDAV mount, it will say it succeeded, but all of the copies will be zero bytes. Instead, use the Terminal.app and command line to *cp -r* the content.
 </div>
 
 <div class="left" markdown="1">
 # Installing WebGen
 </div>
 <div class="right" markdown="1">
-Before running the webgen command above you need to install it by [following these instructions]()
+Before running the webgen command above you need to install it.
 
     sudo gem install webgen
 
@@ -60,7 +66,7 @@ You also need to install the following gems
     sudo gem install feedtools
     sudo gem install haml
 
-To be able to deploy the site you will need
+You can also install *sitecopy* to help deploy the site, although I find the WebDAV approach a lot easier.
 
     sudo port install sitecopy
 </div>
