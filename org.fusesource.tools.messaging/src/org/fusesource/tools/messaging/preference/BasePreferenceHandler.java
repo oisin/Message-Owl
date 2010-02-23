@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.messaging.preference;
 
 import java.util.ArrayList;
@@ -9,71 +16,71 @@ import org.eclipse.jface.util.PropertyChangeEvent;
 import org.fusesource.tools.messaging.IConstants;
 import org.fusesource.tools.messaging.plugin.FuseMessagingPlugin;
 
-
 public class BasePreferenceHandler implements PreferenceHandler, IPropertyChangeListener {
 
-	private IPreferenceStore store = null;
+    private IPreferenceStore store = null;
 
-	private List<PreferenceChangedListener> preferenceChangedListenerList = new ArrayList<PreferenceChangedListener>();
+    private List<PreferenceChangedListener> preferenceChangedListenerList = new ArrayList<PreferenceChangedListener>();
 
-	private static BasePreferenceHandler basePreferenceHandler;
+    private static BasePreferenceHandler basePreferenceHandler;
 
-	private BasePreferenceHandler() {
-		setPreferenceStore();
-		initializeDefaultPreferences();
-		store.addPropertyChangeListener(this);
-	}
+    private BasePreferenceHandler() {
+        setPreferenceStore();
+        initializeDefaultPreferences();
+        store.addPropertyChangeListener(this);
+    }
 
-	private void initializeDefaultPreferences() {
-		IPreferenceStore preferenceStore = getPreferenceStore();
-		preferenceStore.setDefault(IConstants.MESSAGES_HISTORY_COUNT, IConstants.DEFAULT_MESSAGES_HISTORY_COUNT);
-	}
+    private void initializeDefaultPreferences() {
+        IPreferenceStore preferenceStore = getPreferenceStore();
+        preferenceStore.setDefault(IConstants.MESSAGES_HISTORY_COUNT, IConstants.DEFAULT_MESSAGES_HISTORY_COUNT);
+    }
 
-	private void setPreferenceStore() {
-		store = FuseMessagingPlugin.getDefault().getPreferenceStore();
-	}
+    private void setPreferenceStore() {
+        store = FuseMessagingPlugin.getDefault().getPreferenceStore();
+    }
 
-	public static BasePreferenceHandler getInstance() {
-		if (basePreferenceHandler == null)
-			basePreferenceHandler = new BasePreferenceHandler();
-		return basePreferenceHandler;
-	}
+    public static BasePreferenceHandler getInstance() {
+        if (basePreferenceHandler == null) {
+            basePreferenceHandler = new BasePreferenceHandler();
+        }
+        return basePreferenceHandler;
+    }
 
-	public void propertyChange(PropertyChangeEvent event) {
-		String prefKey = event.getProperty();
-		String prefValue = store.getString(prefKey);
-		firePreferenceChangedEvent(prefKey, prefValue);
-	}
+    public void propertyChange(PropertyChangeEvent event) {
+        String prefKey = event.getProperty();
+        String prefValue = store.getString(prefKey);
+        firePreferenceChangedEvent(prefKey, prefValue);
+    }
 
-	/**
-	 * @param event
-	 */
-	public void firePreferenceChangedEvent(String prefKey, Object prefValue) {
-		PreferenceEvent event = new PreferenceEvent(prefKey, prefValue);
-		for (int i = 0; i < preferenceChangedListenerList.size(); i++) {
-			PreferenceChangedListener listener = preferenceChangedListenerList.get(i);
-			listener.valueChanged(event);
-		}
-	}
+    /**
+     * @param event
+     */
+    public void firePreferenceChangedEvent(String prefKey, Object prefValue) {
+        PreferenceEvent event = new PreferenceEvent(prefKey, prefValue);
+        for (int i = 0; i < preferenceChangedListenerList.size(); i++) {
+            PreferenceChangedListener listener = preferenceChangedListenerList.get(i);
+            listener.valueChanged(event);
+        }
+    }
 
-	public IPreferenceStore getPreferenceStore() {
-		return store;
-	}
+    public IPreferenceStore getPreferenceStore() {
+        return store;
+    }
 
-	public void addPreferenceChangedListener(PreferenceChangedListener listener) {
-		preferenceChangedListenerList.add(listener);
-	}
+    public void addPreferenceChangedListener(PreferenceChangedListener listener) {
+        preferenceChangedListenerList.add(listener);
+    }
 
-	public void removePreferenceChangedListener(PreferenceChangedListener listener) {
-		preferenceChangedListenerList.remove(listener);
-	}
+    public void removePreferenceChangedListener(PreferenceChangedListener listener) {
+        preferenceChangedListenerList.remove(listener);
+    }
 
-	public String getPreferenceValue(String key) {
-		return store.getString(key);
-	}
+    public String getPreferenceValue(String key) {
+        return store.getString(key);
+    }
 
-	public void setPreferenceValue(String key, String value) {
-		store.setValue(key, value);
-	}
+    public void setPreferenceValue(String key, String value) {
+        store.setValue(key, value);
+    }
 
 }

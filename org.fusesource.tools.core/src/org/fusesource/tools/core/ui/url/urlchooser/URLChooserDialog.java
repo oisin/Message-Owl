@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.core.ui.url.urlchooser;
 
 import java.io.File;
@@ -8,6 +15,7 @@ import java.util.Map;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.dialogs.IDialogConstants;
+import org.eclipse.jface.window.Window;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.ModifyEvent;
 import org.eclipse.swt.events.ModifyListener;
@@ -22,199 +30,176 @@ import org.eclipse.swt.widgets.Shell;
 import org.eclipse.ui.IEditorInput;
 import org.eclipse.ui.PlatformUI;
 
-
 /** 
  */
-public class URLChooserDialog  extends Dialog{
+public class URLChooserDialog extends Dialog {
 
-	private String title;
-	private URLChooser chooser;
-	private URLChooserFilter filter;
-	private URL primeURL;
-	private List supportedProviderIds;
-	private List tempFSProviders;
-	
-	String buttonLabel[];
-	
-	protected int chooserStyle = URLChooser.STYLE_NONE;
-	
-	public URLChooserDialog(Shell shell, 
-                            String title, 
-                            URLChooserFilter filter)
-    {
-		super(shell);		
-		this.title = title;
-		this.filter = filter;		
-	}
+    private String title;
+    private URLChooser chooser;
+    private URLChooserFilter filter;
+    private URL primeURL;
+    private List supportedProviderIds;
+    private List tempFSProviders;
 
-	public URLChooserDialog(Shell shell, 
-            String title, 
-            URLChooserFilter filter,
-            int chooserStyle)
-	{
-		super(shell);		
-		this.title = title;
-		this.filter = filter;	
-		this.chooserStyle = chooserStyle;
-	}
-	
-	public URLChooserDialog(Shell shell, 
-            String title, 
-            URLChooserFilter filter,
-            List supportedProviderIds,
-            List tempFSProviders,
-            int chooserStyle)
-	{
-		super(shell);		
-		this.title = title;
-		this.filter = filter;
-		this.supportedProviderIds = supportedProviderIds;
-		this.tempFSProviders = tempFSProviders;
-		this.chooserStyle = chooserStyle;
-	}
-	
-	public URLChooserDialog(Shell shell,
-	                        String title, 
-                            URLChooserFilter filter,
-                            String buttonLabel[]) 
-    {
-		this(shell, title, filter);
-		this.buttonLabel = buttonLabel;
-	}
-	
-	public URLChooserDialog(Shell shell,
-            String title, 
-            URLChooserFilter filter,
-            String buttonLabel[], int chooserStyle) 
-	{
-		this(shell, title, filter);
-		this.buttonLabel = buttonLabel;
-		this.chooserStyle = chooserStyle;
-	}	
-	
+    String buttonLabel[];
 
-	/**
-	 * Construct a URLChooserDialog and pre-populate the text field with the passed in url 
-	 * @param shell
-	 * @param title
-	 * @param filter
-	 * @param buttonLabel
-	 * @param url	URL to pre-populate the control with
-	 */
-	public URLChooserDialog(Shell shell,
-            String title, 
-            URLChooserFilter filter,
-            String buttonLabel[],
-            URL url) 
-	{
-		this(shell, title, filter);
-		this.buttonLabel = buttonLabel;
-		primeURL = url;
-	}
+    protected int chooserStyle = AbstractChooser.STYLE_NONE;
 
-	public URLChooserDialog(Shell shell,
-            String title, 
-            URLChooserFilter filter,
-            String buttonLabel[],
-            URL url,
-            int chooserStyle) 
-	{
-		this(shell, title, filter);
-		this.buttonLabel = buttonLabel;
-		primeURL = url;
-		this.chooserStyle = chooserStyle;
-	}
-	
-	
-	protected void configureShell(Shell newShell) {
-		super.configureShell(newShell);
-		newShell.setText(title);
-	}
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter) {
+        super(shell);
+        this.title = title;
+        this.filter = filter;
+    }
 
-	protected Control createDialogArea(Composite parent) {
-		Composite composite = (Composite) super.createDialogArea(parent);
-		createDescriptionArea(composite);
-		return composite;
-	}		
-		
-	
-	private void createDescriptionArea(Composite parent) {		
-		Font font = parent.getFont();
-		Composite composite = new Composite(parent, SWT.NONE);
-		GridLayout layout = new GridLayout();
-		layout.numColumns = 2;
-		composite.setLayout(layout);
-		Label label = new Label(composite, SWT.NONE);
-		label.setText("File URL");
-		label.setFont(font);
-		GridData gd0 = new GridData(GridData.FILL_HORIZONTAL);
-		gd0.widthHint = convertHorizontalDLUsToPixels(300);
-		gd0.horizontalSpan = 2;
-		label.setLayoutData(gd0);
-		
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter, int chooserStyle) {
+        super(shell);
+        this.title = title;
+        this.filter = filter;
+        this.chooserStyle = chooserStyle;
+    }
+
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter, List supportedProviderIds,
+            List tempFSProviders, int chooserStyle) {
+        super(shell);
+        this.title = title;
+        this.filter = filter;
+        this.supportedProviderIds = supportedProviderIds;
+        this.tempFSProviders = tempFSProviders;
+        this.chooserStyle = chooserStyle;
+    }
+
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter, String buttonLabel[]) {
+        this(shell, title, filter);
+        this.buttonLabel = buttonLabel;
+    }
+
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter, String buttonLabel[], int chooserStyle) {
+        this(shell, title, filter);
+        this.buttonLabel = buttonLabel;
+        this.chooserStyle = chooserStyle;
+    }
+
+    /**
+     * Construct a URLChooserDialog and pre-populate the text field with the passed in url
+     * 
+     * @param shell
+     * @param title
+     * @param filter
+     * @param buttonLabel
+     * @param url
+     *            URL to pre-populate the control with
+     */
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter, String buttonLabel[], URL url) {
+        this(shell, title, filter);
+        this.buttonLabel = buttonLabel;
+        primeURL = url;
+    }
+
+    public URLChooserDialog(Shell shell, String title, URLChooserFilter filter, String buttonLabel[], URL url,
+            int chooserStyle) {
+        this(shell, title, filter);
+        this.buttonLabel = buttonLabel;
+        primeURL = url;
+        this.chooserStyle = chooserStyle;
+    }
+
+    @Override
+    protected void configureShell(Shell newShell) {
+        super.configureShell(newShell);
+        newShell.setText(title);
+    }
+
+    @Override
+    protected Control createDialogArea(Composite parent) {
+        Composite composite = (Composite) super.createDialogArea(parent);
+        createDescriptionArea(composite);
+        return composite;
+    }
+
+    private void createDescriptionArea(Composite parent) {
+        Font font = parent.getFont();
+        Composite composite = new Composite(parent, SWT.NONE);
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 2;
+        composite.setLayout(layout);
+        Label label = new Label(composite, SWT.NONE);
+        label.setText("File URL");
+        label.setFont(font);
+        GridData gd0 = new GridData(GridData.FILL_HORIZONTAL);
+        gd0.widthHint = convertHorizontalDLUsToPixels(300);
+        gd0.horizontalSpan = 2;
+        label.setLayoutData(gd0);
+
         chooser = new URLChooser(composite, supportedProviderIds, tempFSProviders, chooserStyle);
-        if (filter != null)
+        if (filter != null) {
             chooser.setFilters(filter);
-        
-        // This is a passed in URL, if it is not null, use it to set the initial value of the chooser
-        if (primeURL != null)
-        	chooser.setSelectedValue(primeURL);
-        
+        }
+
+        // This is a passed in URL, if it is not null, use it to set the initial value of the
+        // chooser
+        if (primeURL != null) {
+            chooser.setSelectedValue(primeURL);
+        }
+
         chooser.setNewCustomizationProvider(new URLChooser.NewCustomizationProvider() {
             public Map getCustomizationMap() {
                 try {
-                    IEditorInput ei = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage().getActiveEditor().getEditorInput();
-                    return URLChooser.getDefaultCustomizationMap(((IFile)ei.getAdapter(IFile.class)));
-                }
-                catch (Exception e) {
+                    IEditorInput ei = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage()
+                            .getActiveEditor().getEditorInput();
+                    return URLChooser.getDefaultCustomizationMap(((IFile) ei.getAdapter(IFile.class)));
+                } catch (Exception e) {
                 }
                 return null;
             }
         });
-        
-		chooser.getTextControl().addModifyListener(new ModifyListener() {
-			public void modifyText(ModifyEvent e) {
-				Button okButton = getButton(Dialog.OK);
-				URL fileUrl = getURL();
-				if (fileUrl != null) {
-					File file = new File(fileUrl.getFile());
-					if (file.exists()&& file.isFile()) {
-						if (!(okButton.isEnabled()))
-							okButton.setEnabled(true);
-					} else {
-						if (okButton.isEnabled())
-							okButton.setEnabled(false);
-					}
-				}
-			}
-		});
-		
-        
-        chooser.setBrowseButtonText("...");      
+
+        chooser.getTextControl().addModifyListener(new ModifyListener() {
+            public void modifyText(ModifyEvent e) {
+                Button okButton = getButton(Window.OK);
+                URL fileUrl = getURL();
+                if (fileUrl != null) {
+                    File file = new File(fileUrl.getFile());
+                    if (file.exists() && file.isFile()) {
+                        if (!(okButton.isEnabled())) {
+                            okButton.setEnabled(true);
+                        }
+                    } else {
+                        if (okButton.isEnabled()) {
+                            okButton.setEnabled(false);
+                        }
+                    }
+                }
+            }
+        });
+
+        chooser.setBrowseButtonText("...");
         Composite ui = chooser.getUI();
         GridData data = new GridData(SWT.FILL, SWT.FILL, true, false, 1, 1);
         ui.setLayoutData(data);
-	}
+    }
 
-	protected Button createButton(Composite parent, int id, String label, boolean defaultButton) {
-		if (buttonLabel == null || buttonLabel.length < 2) {
-			Button button = super
-					.createButton(parent, id, label, defaultButton);
-			if (id == Dialog.OK)
-				button.setEnabled(false);
-			return button;
-		}
-		
-		if	(id == IDialogConstants.OK_ID)
-			return super.createButton(parent, id, buttonLabel[0], defaultButton);
-		if	(id == IDialogConstants.CANCEL_ID)
-			return super.createButton(parent, id, buttonLabel[1], defaultButton);
-		
-		return super.createButton(parent, id, label, defaultButton);
-	}
-	
-	public URL getURL() {		
-		return chooser.getSelectedValueAsURL();
-	}
-	
+    @Override
+    protected Button createButton(Composite parent, int id, String label, boolean defaultButton) {
+        if (buttonLabel == null || buttonLabel.length < 2) {
+            Button button = super.createButton(parent, id, label, defaultButton);
+            if (id == Window.OK) {
+                button.setEnabled(false);
+            }
+            return button;
+        }
+
+        if (id == IDialogConstants.OK_ID) {
+            return super.createButton(parent, id, buttonLabel[0], defaultButton);
+        }
+        if (id == IDialogConstants.CANCEL_ID) {
+            return super.createButton(parent, id, buttonLabel[1], defaultButton);
+        }
+
+        return super.createButton(parent, id, label, defaultButton);
+    }
+
+    public URL getURL() {
+        return chooser.getSelectedValueAsURL();
+    }
+
 }

@@ -1,9 +1,11 @@
-/**
- * 
- * @since 
- * @author sgupta
- * @version 
- */
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
+
 package org.fusesource.tools.messaging.ui;
 
 import java.util.Map;
@@ -20,37 +22,37 @@ import org.fusesource.tools.messaging.core.IProvider;
 import org.fusesource.tools.messaging.plugin.FuseMessagingPlugin;
 import org.fusesource.tools.messaging.server.MessagingServersUtil;
 
-
 public class DestinationUtil {
 
-	public static IProvider getProvider(String selectedServerName) throws Exception {
-		Map<String, String> msgServersNameIdMap = MessagingServersUtil.getMsgServersNameIdMap();
-		IServer foundServer = ServerCore.findServer(msgServersNameIdMap.get(selectedServerName));
-		return MessagingServersUtil.getProvider(foundServer);
-	}
+    public static IProvider getProvider(String selectedServerName) throws Exception {
+        Map<String, String> msgServersNameIdMap = MessagingServersUtil.getMsgServersNameIdMap();
+        IServer foundServer = ServerCore.findServer(msgServersNameIdMap.get(selectedServerName));
+        return MessagingServersUtil.getProvider(foundServer);
+    }
 
-	public static IConnection getConnection(IProvider provider) {
-		IConnection connection = null;
-		try {
-			connection = provider.getConnection();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return connection;
-	}
+    public static IConnection getConnection(IProvider provider) {
+        IConnection connection = null;
+        try {
+            connection = provider.getConnection();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return connection;
+    }
 
-	public static IDestination createDestination(IDestinationType type, String name, IProvider provider) {
-		IDestination destination = null;
-		IConnection connection = getConnection(provider);
-		if (connection != null) {
-			try {
-				destination = connection.createDestination(type, name);
-			} catch (MessagingException e) {
-				IStatus status = new Status(IStatus.ERROR,FuseMessagingPlugin.PLUGIN_ID,"Failed to create " + type + " destination '" + name + "'.", e);
-				FuseMessagingPlugin.getDefault().getLog().log(status);
-			}
-		} 
-		return destination;
-	}
+    public static IDestination createDestination(IDestinationType type, String name, IProvider provider) {
+        IDestination destination = null;
+        IConnection connection = getConnection(provider);
+        if (connection != null) {
+            try {
+                destination = connection.createDestination(type, name);
+            } catch (MessagingException e) {
+                IStatus status = new Status(IStatus.ERROR, FuseMessagingPlugin.PLUGIN_ID, "Failed to create " + type
+                        + " destination '" + name + "'.", e);
+                FuseMessagingPlugin.getDefault().getLog().log(status);
+            }
+        }
+        return destination;
+    }
 
 }

@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.messaging.cnf.actions;
 
 import org.eclipse.core.resources.IFile;
@@ -16,47 +23,44 @@ import org.fusesource.tools.messaging.cnf.model.BaseGroupComponent;
 import org.fusesource.tools.messaging.cnf.model.ListenerComponent;
 import org.fusesource.tools.messaging.editors.MessageEditorInput;
 
-
 public class OpenMessagesEditorAction implements IObjectActionDelegate {
 
-	private ListenerComponent selectedNode;
+    private ListenerComponent selectedNode;
 
-	public OpenMessagesEditorAction() {
-	
-	}
-	
-	public void OpenMessagesEditor(ListenerComponent listenerComp) throws PartInitException {
-		if (listenerComp == null)
-			return;
-		IFile fileToOpen = ((BaseGroupComponent) listenerComp.getParent())
-				.getFile();
-		if (fileToOpen == null)
-			return;
-		MessageEditorInput editorInput = new MessageEditorInput(fileToOpen,
-				listenerComp.getListener());
-		IWorkbenchPage page = PlatformUI.getWorkbench()
-				.getActiveWorkbenchWindow().getActivePage();
-		IDE.openEditor(page, editorInput,
-				"org.fusesource.tools.messaging.editors.MessagesEditor");
-	}
+    public OpenMessagesEditorAction() {
 
-	public void setActivePart(IAction arg0, IWorkbenchPart arg1) {
-	}
+    }
 
-	public void run(IAction arg0) {
-		try {
-			OpenMessagesEditor(selectedNode);
-		} catch (PartInitException e) {
-			MessageDialog.openError(Display.getDefault().getActiveShell(),
-					"Failed to open messages Editor", e.getMessage());
-			e.printStackTrace();
-		}
-	}
+    public void OpenMessagesEditor(ListenerComponent listenerComp) throws PartInitException {
+        if (listenerComp == null) {
+            return;
+        }
+        IFile fileToOpen = ((BaseGroupComponent) listenerComp.getParent()).getFile();
+        if (fileToOpen == null) {
+            return;
+        }
+        MessageEditorInput editorInput = new MessageEditorInput(fileToOpen, listenerComp.getListener());
+        IWorkbenchPage page = PlatformUI.getWorkbench().getActiveWorkbenchWindow().getActivePage();
+        IDE.openEditor(page, editorInput, "org.fusesource.tools.messaging.editors.MessagesEditor");
+    }
 
-	public void selectionChanged(IAction arg0, ISelection arg1) {
-		Object firstElement = ((StructuredSelection) arg1).getFirstElement();
-		if ((firstElement instanceof ListenerComponent)) {
-			selectedNode = (ListenerComponent) firstElement;
-		}
-	}
+    public void setActivePart(IAction arg0, IWorkbenchPart arg1) {
+    }
+
+    public void run(IAction arg0) {
+        try {
+            OpenMessagesEditor(selectedNode);
+        } catch (PartInitException e) {
+            MessageDialog.openError(Display.getDefault().getActiveShell(), "Failed to open messages Editor", e
+                    .getMessage());
+            e.printStackTrace();
+        }
+    }
+
+    public void selectionChanged(IAction arg0, ISelection arg1) {
+        Object firstElement = ((StructuredSelection) arg1).getFirstElement();
+        if ((firstElement instanceof ListenerComponent)) {
+            selectedNode = (ListenerComponent) firstElement;
+        }
+    }
 }

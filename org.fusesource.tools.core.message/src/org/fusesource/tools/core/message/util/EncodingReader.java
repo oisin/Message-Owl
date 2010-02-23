@@ -1,6 +1,12 @@
-// Copyright © 2009 Progress Software Corporation. All Rights Reserved.
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
+// Copyright (c) 2009 Progress Software Corporation.  
 package org.fusesource.tools.core.message.util;
-
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,71 +32,76 @@ public class EncodingReader {
     private static int FROM_DECL = 2;
     private static int FROM_SYS = 3;
 
-
     private static EncodingReader instance = new EncodingReader();
-
 
     public static EncodingReader getInstance() {
         return instance;
     }
 
     public EncodingInfo readCharset(byte[] bytes) {
-        return readCharset(bytes,true);
+        return readCharset(bytes, true);
     }
 
     /**
-     *
+     * 
      * @param bytes
-     * @param doDefault if true, returns the default charset of the platform if
-     * the charset could not be determined from the content
+     * @param doDefault
+     *            if true, returns the default charset of the platform if the charset could not be
+     *            determined from the content
      * @return
      */
-    public EncodingInfo readCharset(byte[] bytes,boolean doDefault) {
+    public EncodingInfo readCharset(byte[] bytes, boolean doDefault) {
         int len = Math.min(bytes.length, 4);
         int first4[] = new int[4];
         for (int i = 0; i < len; i++) {
             first4[i] = bytes[i] & 0xFF;
         }
         EncodingInfo charset = checkfirst4bytes(first4, len);
-        if (charset != null)
+        if (charset != null) {
             return charset;
+        }
 
         if (startsWithDecalaration(first4)) {
             try {
                 charset = findEncodingDeclaration(new String(bytes, 0, Math.min(bytes.length, 1024), LATIN_1));
-                if (charset != null)
+                if (charset != null) {
                     return charset;
+                }
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
         }
-        return doDefault?defaultEncoding():null;
+        return doDefault ? defaultEncoding() : null;
     }
 
     public EncodingInfo readCharset(InputStream stream) throws IOException {
-        return readCharset(stream,true);
+        return readCharset(stream, true);
     }
 
-
     /**
-     * If the stream supports <b>mark/reset</b>, the stream is reset to where it was
-     * before the method invocation.
-     * @param stream  stream is not closed by the EncodingReader
-     * @param doDefault if true, returns the default charset of the platform if
-     * the charset could not be determined from the content
+     * If the stream supports <b>mark/reset</b>, the stream is reset to where it was before the
+     * method invocation.
+     * 
+     * @param stream
+     *            stream is not closed by the EncodingReader
+     * @param doDefault
+     *            if true, returns the default charset of the platform if the charset could not be
+     *            determined from the content
      * @throws IOException
      */
     public EncodingInfo readCharset(InputStream stream, boolean doDefault) throws IOException {
         boolean mark = stream.markSupported();
-        if (mark)
+        if (mark) {
             stream.mark(1024);
+        }
         try {
             int first4[] = new int[4];
             int len = 0;
             for (int i = 0; i < first4.length; i++) {
                 int r = stream.read();
-                if (r == -1)
+                if (r == -1) {
                     break;
+                }
                 len++;
                 first4[i] = r;
             }
@@ -105,37 +116,41 @@ public class EncodingReader {
                         bytes[i] = ((byte) first4[i]);
                     }
                     int i = stream.read(bytes, len, bytes.length - len);
-                    if (i == -1)
+                    if (i == -1) {
                         return defaultEncoding();
+                    }
                     charset = findEncodingDeclaration(new String(bytes, 0, i, LATIN_1));
-                    if (charset != null)
+                    if (charset != null) {
                         return charset;
+                    }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                 }
             }
-            return doDefault?defaultEncoding():null;
+            return doDefault ? defaultEncoding() : null;
         } finally {
             try {
-                if (mark)
+                if (mark) {
                     stream.reset();
+                }
             } catch (IOException e) {
             }
         }
     }
 
-
     private EncodingInfo checkfirst4bytes(int[] bytes, int length) {
-        if (length < 3)
+        if (length < 3) {
             return null;
+        }
         int byte1 = bytes[0];
         int byte2 = bytes[1];
         int byte3 = bytes[2];
         if (byte1 == 0xEF && byte2 == 0xBB && byte3 == 0xBF) {
             return bomEncoding(UTF_8);
         }
-        if (length < 4)
+        if (length < 4) {
             return null;
+        }
         int byte4 = bytes[3];
         if (byte1 == 0xFE && byte2 == 0xFF) {
             if (byte3 == 0x00 && byte4 == 0x00) {
@@ -157,44 +172,38 @@ public class EncodingReader {
             }
         }
         // no BOM present; try to guess from the way version declaration is encoded
-        // this does not comply fully with the suggestions in xml spec (which are non-normative btw.)
-        if (byte1 == 0x00 && byte2 == 0x00
-                && byte3 == 0x00 && byte4 == '<') {
+        // this does not comply fully with the suggestions in xml spec (which are non-normative
+        // btw.)
+        if (byte1 == 0x00 && byte2 == 0x00 && byte3 == 0x00 && byte4 == '<') {
             return declEncoding(UCS_4BE);
         }
-        if (byte1 == '<' && byte2 == 0x00
-                && byte3 == 0x00 && byte4 == 0x00) {
+        if (byte1 == '<' && byte2 == 0x00 && byte3 == 0x00 && byte4 == 0x00) {
             return declEncoding(UCS_4LE);
         }
-        if (byte1 == 0x00 && byte2 == 0x00
-                && byte3 == '<' && byte4 == 0x00) {
+        if (byte1 == 0x00 && byte2 == 0x00 && byte3 == '<' && byte4 == 0x00) {
             return declEncoding(UCS_4_2143);
         }
-        if (byte1 == 0x00 && byte2 == '<'
-                && byte3 == 0x00 && byte4 == 0x00) {
+        if (byte1 == 0x00 && byte2 == '<' && byte3 == 0x00 && byte4 == 0x00) {
             return declEncoding(UCS_4_3412);
         }
-        if (byte1 == 0x00 && byte2 == '<'
-                && byte3 == 0x00 && byte4 == '?') {
+        if (byte1 == 0x00 && byte2 == '<' && byte3 == 0x00 && byte4 == '?') {
             return declEncoding(UTF_16BE);
-        } else if (byte1 == '<' && byte2 == 0x00
-                && byte3 == '?' && byte4 == 0x00) {
+        } else if (byte1 == '<' && byte2 == 0x00 && byte3 == '?' && byte4 == 0x00) {
             return declEncoding(UTF_16LE);
         }
         return null;
     }
 
     private boolean startsWithDecalaration(int[] first4) {
-        return first4[0] == '<' && first4[1] == '?'
-                && first4[2] == 'x' && first4[3] == 'm';
+        return first4[0] == '<' && first4[1] == '?' && first4[2] == 'x' && first4[3] == 'm';
     }
-
 
     private EncodingInfo findEncodingDeclaration(String declaration) {
         String encoding = "encoding";
         int position = declaration.indexOf(encoding) + encoding.length();
-        if (position == -1)
+        if (position == -1) {
             return null;
+        }
         char c = 0;
         // get rid of white space before equals sign
         while (position < declaration.length()) {
@@ -221,11 +230,14 @@ public class EncodingReader {
         StringBuffer encodingName = new StringBuffer();
         while (position < declaration.length()) {
             c = declaration.charAt(position++);
-            if (c == delimiter) break;
+            if (c == delimiter) {
+                break;
+            }
             encodingName.append(c);
         }
-        if (c != delimiter)
+        if (c != delimiter) {
             return null;
+        }
         return declEncoding(encodingName.toString());
     }
 
@@ -235,24 +247,24 @@ public class EncodingReader {
 
     }
 
-    private static EncodingInfo bomEncoding(String name){
-        return new EncodingInfo(name,FROM_BOM);
+    private static EncodingInfo bomEncoding(String name) {
+        return new EncodingInfo(name, FROM_BOM);
 
     }
 
-    private static EncodingInfo declEncoding(String name){
-        return new EncodingInfo(name,FROM_DECL);
+    private static EncodingInfo declEncoding(String name) {
+        return new EncodingInfo(name, FROM_DECL);
     }
+
     private static EncodingInfo defaultEncoding() {
-        return new EncodingInfo(System.getProperty("file.encoding"),FROM_SYS);
+        return new EncodingInfo(System.getProperty("file.encoding"), FROM_SYS);
     }
-
 
     public static class EncodingInfo {
         private String encoding;
         private int type;
 
-        private EncodingInfo(String encoding,int type){
+        private EncodingInfo(String encoding, int type) {
             this.encoding = encoding;
             this.type = type;
         }
@@ -261,18 +273,19 @@ public class EncodingReader {
             return encoding;
         }
 
-        public boolean isFromBOM(){
+        public boolean isFromBOM() {
             return type == FROM_BOM;
         }
 
-        public boolean isFromDeclaration(){
+        public boolean isFromDeclaration() {
             return type == FROM_DECL;
         }
 
-        public boolean isSystemDefault(){
+        public boolean isSystemDefault() {
             return type == FROM_SYS;
         }
 
+        @Override
         public String toString() {
             return encoding;
         }

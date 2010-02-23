@@ -1,4 +1,11 @@
-// Copyright © 2009 Progress Software Corporation. All Rights Reserved.
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
+// Copyright (c) 2009 Progress Software Corporation.  
 package org.fusesource.tools.message.helper;
 
 import java.util.ArrayList;
@@ -32,139 +39,136 @@ import org.fusesource.tools.message.presentation.MessageEditor;
 import org.fusesource.tools.message.utils.EMFUtil;
 import org.fusesource.tools.message.utils.MessageExtensionsMgr;
 
-
-/**
- * 
- * @author sgupta
- * 
- */
 public class MessageEditorHelper {
 
-	private Composite bodyComposite = null;
+    private Composite bodyComposite = null;
 
-	private Message messageModel = null;
+    private Message messageModel = null;
 
-	private Composite bodyContentComposite = null;
+    private Composite bodyContentComposite = null;
 
-	private EditingDomain editingDomain;
+    private EditingDomain editingDomain;
 
-	private Composite container;
+    private Composite container;
 
-	private Collection<MessageEditorPageBean> editorPages;
+    private Collection<MessageEditorPageBean> editorPages;
 
-	private MessageEditor editor;
+    private MessageEditor editor;
 
-	public Collection<MessageEditorPageBean> getPages(Composite container, EditingDomain editingDomain, Message message, MessageEditor editor) {
-		this.editingDomain = editingDomain;
-		this.container = container;
-		this.messageModel = message;
-		this.editor = editor;
-		editorPages = new ArrayList<MessageEditorPageBean>();
-		Composite bodyUI = createBodyUI();
-		// Create a body page
-		editorPages.add(new MessageEditorPageBean(MessageEditorConstants.MESSAGE_BODY_PAGE_NAME, bodyUI));
-		addRequiredPages();
-		return editorPages;
-	}
+    public Collection<MessageEditorPageBean> getPages(Composite container, EditingDomain editingDomain,
+            Message message, MessageEditor editor) {
+        this.editingDomain = editingDomain;
+        this.container = container;
+        this.messageModel = message;
+        this.editor = editor;
+        editorPages = new ArrayList<MessageEditorPageBean>();
+        Composite bodyUI = createBodyUI();
+        // Create a body page
+        editorPages.add(new MessageEditorPageBean(MessageEditorConstants.MESSAGE_BODY_PAGE_NAME, bodyUI));
+        addRequiredPages();
+        return editorPages;
+    }
 
-	public Composite createBodyUI() {
-		bodyComposite = new Composite(container, SWT.NONE);
-		bodyComposite.setLayout(new GridLayout(5, false));
+    public Composite createBodyUI() {
+        bodyComposite = new Composite(container, SWT.NONE);
+        bodyComposite.setLayout(new GridLayout(5, false));
 
-		GridData data = new GridData();
-		Label messageType = new Label(bodyComposite, SWT.NONE);
-		messageType.setText("Message Type:");
-		data.horizontalSpan = 2;
-		messageType.setLayoutData(data);
+        GridData data = new GridData();
+        Label messageType = new Label(bodyComposite, SWT.NONE);
+        messageType.setText("Message Type:");
+        data.horizontalSpan = 2;
+        messageType.setLayoutData(data);
 
-		data = new GridData();
-		data.horizontalSpan = 3;
-		final Combo messageTypeCombo = new Combo(bodyComposite, SWT.READ_ONLY);
-		List<String> messageTypes = EMFUtil.getDisplayMessageTypes();
-		messageTypeCombo.setItems(messageTypes.toArray(new String[messageTypes.size()]));
-		messageTypeCombo.setLayoutData(data);
+        data = new GridData();
+        data.horizontalSpan = 3;
+        final Combo messageTypeCombo = new Combo(bodyComposite, SWT.READ_ONLY);
+        List<String> messageTypes = EMFUtil.getDisplayMessageTypes();
+        messageTypeCombo.setItems(messageTypes.toArray(new String[messageTypes.size()]));
+        messageTypeCombo.setLayoutData(data);
 
-		disposeAndCreateBodyContentComposite();
-		String type = messageModel.getType();
+        disposeAndCreateBodyContentComposite();
+        String type = messageModel.getType();
 
-		// convert the type in the format of ${TYPE(ProviderName)
-		String displayType = EMFUtil.formatDisplayType(type, messageModel.getProviderId());
-		messageTypeCombo.select(messageTypes.indexOf(displayType));
+        // convert the type in the format of ${TYPE(ProviderName)
+        String displayType = EMFUtil.formatDisplayType(type, messageModel.getProviderId());
+        messageTypeCombo.select(messageTypes.indexOf(displayType));
 
-		messageTypeCombo.addSelectionListener(new SelectionListener() {
-			public void widgetSelected(SelectionEvent e) {
-				editorPages.clear();
-				refreshAll(messageTypeCombo);
-				editor.addNewPagesToEditor(editorPages);
-			}
+        messageTypeCombo.addSelectionListener(new SelectionListener() {
+            public void widgetSelected(SelectionEvent e) {
+                editorPages.clear();
+                refreshAll(messageTypeCombo);
+                editor.addNewPagesToEditor(editorPages);
+            }
 
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
-		});
-		return bodyComposite;
-	}
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
+        });
+        return bodyComposite;
+    }
 
-	private void refreshAll(final Combo messageTypeCombo) {
-		reset();
-		disposeAndCreateBodyContentComposite();
-		String type = messageTypeCombo.getItem(messageTypeCombo.getSelectionIndex());
-		EMFUtil.loadHeadersAndMessgeAttributes(type, messageModel, editingDomain);
-		addRequiredPages();
-		bodyComposite.layout();
-		refreshBodyUI();
-	}
+    private void refreshAll(final Combo messageTypeCombo) {
+        reset();
+        disposeAndCreateBodyContentComposite();
+        String type = messageTypeCombo.getItem(messageTypeCombo.getSelectionIndex());
+        EMFUtil.loadHeadersAndMessgeAttributes(type, messageModel, editingDomain);
+        addRequiredPages();
+        bodyComposite.layout();
+        refreshBodyUI();
+    }
 
-	private void addRequiredPages() {
-		Collection<MessageEditorPageBean> contentComposite = createBodyContentComposite();
-		if (contentComposite != null)
-			editorPages.addAll(contentComposite);
-	}
+    private void addRequiredPages() {
+        Collection<MessageEditorPageBean> contentComposite = createBodyContentComposite();
+        if (contentComposite != null) {
+            editorPages.addAll(contentComposite);
+        }
+    }
 
-	private void reset() {
-		ArrayList<Command> arrayList = new ArrayList<Command>();
-		Properties properties = messageModel.getProperties();
-		Body body = messageModel.getBody();
-		MessagePackage einstance = MessagePackage.eINSTANCE;
-		if (properties != null) {
-			EList<Property> property = properties.getProperty();
-			if (property != null && !property.isEmpty())
-				arrayList.add(RemoveCommand.create(editingDomain, properties, einstance.getProperties(),
-						new StructuredSelection(property).toList()));
-		}
-		if (body != null){
-			arrayList.add(RemoveCommand.create(editingDomain, messageModel, einstance.getBody(),
-					new StructuredSelection(body).toList()));
-		}
-		if (arrayList.size() > 0) {
-			CompoundCommand deleteHeaders = new CompoundCommand(arrayList);
-			editingDomain.getCommandStack().execute(deleteHeaders);
-		}
-	}
+    private void reset() {
+        ArrayList<Command> arrayList = new ArrayList<Command>();
+        Properties properties = messageModel.getProperties();
+        Body body = messageModel.getBody();
+        MessagePackage einstance = MessagePackage.eINSTANCE;
+        if (properties != null) {
+            EList<Property> property = properties.getProperty();
+            if (property != null && !property.isEmpty()) {
+                arrayList.add(RemoveCommand.create(editingDomain, properties, einstance.getProperties(),
+                        new StructuredSelection(property).toList()));
+            }
+        }
+        if (body != null) {
+            arrayList.add(RemoveCommand.create(editingDomain, messageModel, einstance.getBody(),
+                    new StructuredSelection(body).toList()));
+        }
+        if (arrayList.size() > 0) {
+            CompoundCommand deleteHeaders = new CompoundCommand(arrayList);
+            editingDomain.getCommandStack().execute(deleteHeaders);
+        }
+    }
 
-	private void disposeAndCreateBodyContentComposite() {
-		if (bodyContentComposite != null) {
-			bodyContentComposite.dispose();
-		}
-		bodyContentComposite = new Composite(bodyComposite, SWT.NONE);
-		GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
-		data.horizontalSpan = 5;
-		bodyContentComposite.setLayoutData(data);
-	}
+    private void disposeAndCreateBodyContentComposite() {
+        if (bodyContentComposite != null) {
+            bodyContentComposite.dispose();
+        }
+        bodyContentComposite = new Composite(bodyComposite, SWT.NONE);
+        GridData data = new GridData(SWT.FILL, SWT.FILL, true, true);
+        data.horizontalSpan = 5;
+        bodyContentComposite.setLayoutData(data);
+    }
 
-	private Collection<MessageEditorPageBean> createBodyContentComposite() {
-		String type = messageModel.getType();
-		String providerId = messageModel.getProviderId();
-		IMessageTypeUI messageTypeUI = MessageExtensionsMgr.getInstance().getMessageTypeUIExtension(type, providerId);
-		if (messageTypeUI != null) {
-			IMessageEditorExtension editorExtension = messageTypeUI.getEditorExtension();
-			editorExtension.createBody(bodyContentComposite, editingDomain, messageModel);
-			return editorExtension.getEditorPages(container, editingDomain, messageModel);
-		}
-		return null;
-	}
+    private Collection<MessageEditorPageBean> createBodyContentComposite() {
+        String type = messageModel.getType();
+        String providerId = messageModel.getProviderId();
+        IMessageTypeUI messageTypeUI = MessageExtensionsMgr.getInstance().getMessageTypeUIExtension(type, providerId);
+        if (messageTypeUI != null) {
+            IMessageEditorExtension editorExtension = messageTypeUI.getEditorExtension();
+            editorExtension.createBody(bodyContentComposite, editingDomain, messageModel);
+            return editorExtension.getEditorPages(container, editingDomain, messageModel);
+        }
+        return null;
+    }
 
-	public void refreshBodyUI() {
-		bodyContentComposite.layout();
-	}
+    public void refreshBodyUI() {
+        bodyContentComposite.layout();
+    }
 
 }

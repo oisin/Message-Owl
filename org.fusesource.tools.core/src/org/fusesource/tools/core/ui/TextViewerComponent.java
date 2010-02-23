@@ -1,4 +1,11 @@
-// Copyright © 2009 Progress Software Corporation. All Rights Reserved.
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
+// Copyright (c) 2009 Progress Software Corporation.  
 package org.fusesource.tools.core.ui;
 
 import org.eclipse.emf.ecore.util.FeatureMap;
@@ -25,100 +32,100 @@ import org.eclipse.wst.xml.core.internal.provisional.contenttype.ContentTypeIdFo
 import org.eclipse.wst.xml.ui.StructuredTextViewerConfigurationXML;
 import org.fusesource.tools.core.ui.viewer.actions.SourceViewerContextMenuProvider;
 
-
 @SuppressWarnings("restriction")
 public class TextViewerComponent {
 
-	public static SourceViewer createTextViewer(Composite parent, int style) {
-		return createTextViewer(parent, null, style);
-	}
+    public static SourceViewer createTextViewer(Composite parent, int style) {
+        return createTextViewer(parent, null, style);
+    }
 
-	public static StructuredTextViewer createXMLViewer(Composite parent, int style) {
-		return createXMLViewer(parent, null, style);
-	}
+    public static StructuredTextViewer createXMLViewer(Composite parent, int style) {
+        return createXMLViewer(parent, null, style);
+    }
 
-	public static SourceViewer createSourceViewer(Composite composite, Object data, int style) {
+    public static SourceViewer createSourceViewer(Composite composite, Object data, int style) {
 
-		SourceViewer sourceViewer = new SourceViewer(composite, null, null, false, style);
-		sourceViewer.setEditable(false);
-		sourceViewer.setDocument(new Document(""));
-		sourceViewer.configure(new TextSourceViewerConfiguration());
-		sourceViewer.getTextWidget().addFocusListener(new FocusListener() {
-			private IContextActivation context;
+        SourceViewer sourceViewer = new SourceViewer(composite, null, null, false, style);
+        sourceViewer.setEditable(false);
+        sourceViewer.setDocument(new Document(""));
+        sourceViewer.configure(new TextSourceViewerConfiguration());
+        sourceViewer.getTextWidget().addFocusListener(new FocusListener() {
+            private IContextActivation context;
 
-			public void focusGained(FocusEvent e) {
-				IContextService contextService = (IContextService) PlatformUI.getWorkbench().getService(
-						IContextService.class);
-				context = contextService.activateContext("org.eclipse.ui.textEditorScope");
-			}
+            public void focusGained(FocusEvent e) {
+                IContextService contextService = (IContextService) PlatformUI.getWorkbench().getService(
+                        IContextService.class);
+                context = contextService.activateContext("org.eclipse.ui.textEditorScope");
+            }
 
-			public void focusLost(FocusEvent e) {
-				IContextService contextService = (IContextService) PlatformUI.getWorkbench().getService(
-						IContextService.class);
-				contextService.deactivateContext(context);
-			}
+            public void focusLost(FocusEvent e) {
+                IContextService contextService = (IContextService) PlatformUI.getWorkbench().getService(
+                        IContextService.class);
+                contextService.deactivateContext(context);
+            }
 
-		});
-		sourceViewer.getDocument().set(data.toString());
-		sourceViewer.setEditable(true);
-		addContextMenu(sourceViewer);
-		return sourceViewer;
-	}
+        });
+        sourceViewer.getDocument().set(data.toString());
+        sourceViewer.setEditable(true);
+        addContextMenu(sourceViewer);
+        return sourceViewer;
+    }
 
-	protected static void addContextMenu(SourceViewer sourceViewer) {
-		new SourceViewerContextMenuProvider(sourceViewer);
-	}
+    protected static void addContextMenu(SourceViewer sourceViewer) {
+        new SourceViewerContextMenuProvider(sourceViewer);
+    }
 
-	public static SourceViewer createTextViewer(Composite parent, Object data, int style) {
-		data = getData(data);
-		return createSourceViewer(parent, data, style);
-	}
+    public static SourceViewer createTextViewer(Composite parent, Object data, int style) {
+        data = getData(data);
+        return createSourceViewer(parent, data, style);
+    }
 
-	public static StructuredTextViewer createXMLViewer(Composite parent, Object data, int style) {
-		data = getData(data);
-		SourceViewerConfiguration sourceViewerConfiguration = new StructuredTextViewerConfiguration() {
-			StructuredTextViewerConfiguration baseConfiguration = new StructuredTextViewerConfigurationXML();
+    public static StructuredTextViewer createXMLViewer(Composite parent, Object data, int style) {
+        data = getData(data);
+        SourceViewerConfiguration sourceViewerConfiguration = new StructuredTextViewerConfiguration() {
+            StructuredTextViewerConfiguration baseConfiguration = new StructuredTextViewerConfigurationXML();
 
-			public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
-				return baseConfiguration.getConfiguredContentTypes(sourceViewer);
-			}
+            @Override
+            public String[] getConfiguredContentTypes(ISourceViewer sourceViewer) {
+                return baseConfiguration.getConfiguredContentTypes(sourceViewer);
+            }
 
-			public LineStyleProvider[] getLineStyleProviders(ISourceViewer sourceViewer, String partitionType) {
-				return baseConfiguration.getLineStyleProviders(sourceViewer, partitionType);
-			}
-		};
-		StructuredTextViewer structuredViewer = new StructuredTextViewer(parent, null, null, false, style);
-		((StructuredTextViewer) structuredViewer).getTextWidget().setFont(
-				JFaceResources.getFont("org.eclipse.wst.sse.ui.textfont"));
-		org.eclipse.wst.sse.core.internal.provisional.IStructuredModel scratchModel = StructuredModelManager
-				.getModelManager().createUnManagedStructuredModelFor(ContentTypeIdForXML.ContentTypeID_XML);
-		IDocument document = scratchModel.getStructuredDocument();
-		structuredViewer.configure(sourceViewerConfiguration);
-		structuredViewer.setDocument(document);
-		structuredViewer.getDocument().set(data.toString());
-		new SourceViewerContextMenuProvider(structuredViewer);
-		return structuredViewer;
-	}
+            @Override
+            public LineStyleProvider[] getLineStyleProviders(ISourceViewer sourceViewer, String partitionType) {
+                return baseConfiguration.getLineStyleProviders(sourceViewer, partitionType);
+            }
+        };
+        StructuredTextViewer structuredViewer = new StructuredTextViewer(parent, null, null, false, style);
+        (structuredViewer).getTextWidget().setFont(JFaceResources.getFont("org.eclipse.wst.sse.ui.textfont"));
+        org.eclipse.wst.sse.core.internal.provisional.IStructuredModel scratchModel = StructuredModelManager
+                .getModelManager().createUnManagedStructuredModelFor(ContentTypeIdForXML.ContentTypeID_XML);
+        IDocument document = scratchModel.getStructuredDocument();
+        structuredViewer.configure(sourceViewerConfiguration);
+        structuredViewer.setDocument(document);
+        structuredViewer.getDocument().set(data.toString());
+        new SourceViewerContextMenuProvider(structuredViewer);
+        return structuredViewer;
+    }
 
-	private static Object getData(Object data) {
-		if (data == null) {
-			data = "";
-		}
-		if (data instanceof AnyType) {
-			data = getData((AnyType) data);
-		}
-		
-		data = ((String)data).trim();
-		return data;
-	}
+    private static Object getData(Object data) {
+        if (data == null) {
+            data = "";
+        }
+        if (data instanceof AnyType) {
+            data = getData((AnyType) data);
+        }
 
-	static String getData(AnyType object) {
-		FeatureMap mixed = object.getMixed();
-		for (Entry entry : mixed) {
-			if (entry.getValue() instanceof String) {
-				return ((String) entry.getValue()).trim();
-			}
-		}
-		return "";
-	}
+        data = ((String) data).trim();
+        return data;
+    }
+
+    static String getData(AnyType object) {
+        FeatureMap mixed = object.getMixed();
+        for (Entry entry : mixed) {
+            if (entry.getValue() instanceof String) {
+                return ((String) entry.getValue()).trim();
+            }
+        }
+        return "";
+    }
 }

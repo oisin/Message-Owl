@@ -27,7 +27,7 @@
             vendor="FUSE"
             version="1.0">
          <moduleType
-               types="fuse.messaging.module"
+               types="message.owl.module"
                versions="1.0">
          </moduleType>
       </runtimeType>

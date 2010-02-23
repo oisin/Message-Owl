@@ -1,24 +1,44 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.core.ui.url.urlchooser;
-
-import org.eclipse.jface.viewers.CellEditor;
-import org.eclipse.jface.viewers.ILabelProvider;
-import org.eclipse.jface.viewers.LabelProvider;
-import org.eclipse.swt.SWT;
-import org.eclipse.swt.dnd.DropTargetEvent;
-import org.eclipse.swt.events.*;
-import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.widgets.*;
-import org.fusesource.tools.core.ui.url.urlchooser.filesystemchooser.LocalDirectorySystemProvider;
-import org.fusesource.tools.core.ui.url.urlchooser.workspacechooser.ResourceChooserProvider;
-import org.fusesource.tools.core.ui.url.urlchooser.workspacechooser.WorkspaceChooserProvider;
-
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
+
+import org.eclipse.jface.viewers.CellEditor;
+import org.eclipse.jface.viewers.ILabelProvider;
+import org.eclipse.jface.viewers.LabelProvider;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.dnd.DropTargetEvent;
+import org.eclipse.swt.events.DisposeEvent;
+import org.eclipse.swt.events.DisposeListener;
+import org.eclipse.swt.events.KeyAdapter;
+import org.eclipse.swt.events.KeyEvent;
+import org.eclipse.swt.events.MouseAdapter;
+import org.eclipse.swt.events.MouseEvent;
+import org.eclipse.swt.events.SelectionAdapter;
+import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.TraverseEvent;
+import org.eclipse.swt.events.TraverseListener;
+import org.eclipse.swt.graphics.Point;
+import org.eclipse.swt.graphics.Rectangle;
+import org.eclipse.swt.widgets.Button;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.widgets.Control;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Event;
+import org.eclipse.swt.widgets.Layout;
+import org.eclipse.swt.widgets.Listener;
+import org.eclipse.swt.widgets.Menu;
+import org.eclipse.swt.widgets.Text;
 
 public class URLChooserCellEditor extends CellEditor {
 
@@ -48,8 +68,8 @@ public class URLChooserCellEditor extends CellEditor {
     //
     // ------------------------------------------------------------------------
 
+    @Override
     protected Control createControl(Composite parent) {
-    	
 
         m_chooser = new MyURLChooser(parent, null, null, null, getURLChooserStyle());
 
@@ -68,7 +88,7 @@ public class URLChooserCellEditor extends CellEditor {
      * Subclasses can override the method to return specific URLCHooser style.
      */
     protected int getURLChooserStyle() {
-        return URLChooser.STYLE_SUPPORT_OPEN;
+        return AbstractChooser.STYLE_SUPPORT_OPEN;
     }
 
     private class MyURLChooser extends URLChooser {
@@ -81,11 +101,8 @@ public class URLChooserCellEditor extends CellEditor {
             super(parent);
         }
 
-        public MyURLChooser(Composite parent,
-                            List supportedProviderIds,
-                            List tempFSProviders,
-                            URLChooserChangeListener listener,
-                            int style) {
+        public MyURLChooser(Composite parent, List supportedProviderIds, List tempFSProviders,
+                URLChooserChangeListener listener, int style) {
             super(parent, supportedProviderIds, tempFSProviders, listener, style);
 
             // Sonic00029856 - All this listener and filter weirdness is here to handle
@@ -110,11 +127,11 @@ public class URLChooserCellEditor extends CellEditor {
                 }
             };
             getTextControl().addListener(SWT.FocusIn, this.listener);
-//            getTextControl().addFocusListener(new FocusAdapter() {
-//                public void focusLost(FocusEvent e) {
-//                    URLChooserCellEditor.this.focusLost();
-//                }
-//            });
+            // getTextControl().addFocusListener(new FocusAdapter() {
+            // public void focusLost(FocusEvent e) {
+            // URLChooserCellEditor.this.focusLost();
+            // }
+            // });
             bBrowse.addListener(SWT.FocusIn, this.listener);
             bSelect.addListener(SWT.FocusIn, this.listener);
 
@@ -123,21 +140,22 @@ public class URLChooserCellEditor extends CellEditor {
                     Control eControl = (Control) event.widget;
                     Control mControl = MyURLChooser.this.getUI();
 
-                    if (eControl.isDisposed() || mControl.isDisposed())
+                    if (eControl.isDisposed() || mControl.isDisposed()) {
                         return;
+                    }
 
                     if (eControl.getShell() == mControl.getShell()) {
                         handleFocus(SWT.FocusOut);
                     }
                 }
             };
-            parent.addDisposeListener(new DisposeListener(){
+            parent.addDisposeListener(new DisposeListener() {
 
-				public void widgetDisposed(DisposeEvent e) {
-					Display display = getUI().getDisplay();	
-					display.removeFilter(SWT.FocusIn, filter);
-				}
-            	
+                public void widgetDisposed(DisposeEvent e) {
+                    Display display = getUI().getDisplay();
+                    display.removeFilter(SWT.FocusIn, filter);
+                }
+
             });
         }
 
@@ -151,12 +169,14 @@ public class URLChooserCellEditor extends CellEditor {
         }
 
         void handleFocus(int type) {
-            if (getUI().isDisposed())
+            if (getUI().isDisposed()) {
                 return;
+            }
             switch (type) {
                 case SWT.FocusIn: {
-                    if (hasFocus)
+                    if (hasFocus) {
                         return;
+                    }
                     hasFocus = true;
                     Display display = getUI().getDisplay();
                     display.removeFilter(SWT.FocusIn, filter);
@@ -168,8 +188,9 @@ public class URLChooserCellEditor extends CellEditor {
                 case SWT.FocusOut: {
                     hasFocus = false;
                     Control focusControl = getUI().getDisplay().getFocusControl();
-                    if ((focusControl == getTextControl()) || (focusControl == bBrowse) || (focusControl == bSelect))
+                    if ((focusControl == getTextControl()) || (focusControl == bBrowse) || (focusControl == bSelect)) {
                         return;
+                    }
                     Display display = getUI().getDisplay();
                     display.removeFilter(SWT.FocusIn, filter);
                     Event e = new Event();
@@ -179,17 +200,20 @@ public class URLChooserCellEditor extends CellEditor {
             }
         }
 
+        @Override
         protected Text createText(Composite parent) {
             Text text = new Text(parent, SWT.SINGLE);
 
             // Handles the ENTER key being pressed
             text.addSelectionListener(new SelectionAdapter() {
+                @Override
                 public void widgetDefaultSelected(SelectionEvent e) {
                     handleDefaultSelection(e);
                 }
             });
             text.addKeyListener(new KeyAdapter() {
                 // hook key pressed - see PR 14201
+                @Override
                 public void keyPressed(KeyEvent e) {
                     keyReleaseOccured(e);
                 }
@@ -203,20 +227,25 @@ public class URLChooserCellEditor extends CellEditor {
             });
 
             text.addMouseListener(new MouseAdapter() {
+                @Override
                 public void mouseUp(MouseEvent e) {
-                    if ((e.stateMask & SWT.CTRL) > 0)
+                    if ((e.stateMask & SWT.CTRL) > 0) {
                         openInEditor();
+                    }
                 }
 
+                @Override
                 public void mouseDoubleClick(MouseEvent e) {
-                    if ((e.stateMask & SWT.CTRL) > 0)
+                    if ((e.stateMask & SWT.CTRL) > 0) {
                         openInEditor();
+                    }
                 }
             });
 
             return text;
         }
 
+        @Override
         protected Composite createUIImpl(final Composite parent, List providersList, List tempFSProviders) {
             setMenu(new Menu(parent.getShell()));
             Composite composite = createParent(parent);
@@ -242,6 +271,7 @@ public class URLChooserCellEditor extends CellEditor {
             btnPush.setText("...");
             btnPush.setData("browseName", "PUSH");
             btnPush.addSelectionListener(new SelectionAdapter() {
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     execFileSystemProvider();
                 }
@@ -251,6 +281,7 @@ public class URLChooserCellEditor extends CellEditor {
             Button btnSelect = new Button(composite, SWT.ARROW | SWT.DOWN);
             btnSelect.setData("browseName", "SELECT");
             btnSelect.addSelectionListener(new SelectionAdapter() {
+                @Override
                 public void widgetSelected(SelectionEvent e) {
                     Button item = (Button) e.widget;
                     Rectangle rect = item.getBounds();
@@ -266,6 +297,7 @@ public class URLChooserCellEditor extends CellEditor {
          * Internal class for laying out the dialog.
          */
         private class MyLayout extends Layout {
+            @Override
             public void layout(Composite editor, boolean force) {
                 Rectangle bounds = editor.getClientArea();
 
@@ -281,9 +313,11 @@ public class URLChooserCellEditor extends CellEditor {
                 cBtnS.setBounds(bounds.width - btnSSize.x, 0, btnSSize.x, bounds.height);
             }
 
+            @Override
             public Point computeSize(Composite editor, int wHint, int hHint, boolean force) {
-                if (wHint != SWT.DEFAULT && hHint != SWT.DEFAULT)
+                if (wHint != SWT.DEFAULT && hHint != SWT.DEFAULT) {
                     return new Point(wHint, hHint);
+                }
 
                 Control cTxt = getTextControl();
                 Control cBtnP = getBrowseBarControl(editor, "browseName", "PUSH");
@@ -301,9 +335,11 @@ public class URLChooserCellEditor extends CellEditor {
 
             private Control getBrowseBarControl(Composite editor, String key, String value) {
                 Control[] child = editor.getChildren();
-                for (int i = 0; i < child.length; i++)
-                    if ((child[i].getData(key) != null) && child[i].getData(key).equals(value))
-                        return child[i];
+                for (Control element : child) {
+                    if ((element.getData(key) != null) && element.getData(key).equals(value)) {
+                        return element;
+                    }
+                }
                 return null;
             }
         }
@@ -312,11 +348,13 @@ public class URLChooserCellEditor extends CellEditor {
     /*
      * (non-Javadoc) Method declared on CellEditor. The focus is set to the cell editor's button.
      */
+    @Override
     protected void doSetFocus() {
         m_chooser.getTextControl().setFocus();
         m_chooser.getTextControl().selectAll();
     }
 
+    @Override
     protected Object doGetValue() {
         // Sonic00031383
         // Special case for when the user types something into the text field part
@@ -325,18 +363,20 @@ public class URLChooserCellEditor extends CellEditor {
         // manually here...
         Object[] strValue = URLChooserCellEditor.this.strValue;
         if (m_chooser != null) {
-            if (m_chooser.isTextModified())
+            if (m_chooser.isTextModified()) {
                 strValue = m_chooser.parseText();
+            }
         }
 
-
-        if (strValue == null)
+        if (strValue == null) {
             return "";
+        }
 
         StringBuffer sb = new StringBuffer();
         for (int i = 0; i < strValue.length; i++) {
-            if (i > 0)
+            if (i > 0) {
                 sb.append(", ");
+            }
             sb.append(strValue[i]);
         }
         return sb.toString();
@@ -345,6 +385,7 @@ public class URLChooserCellEditor extends CellEditor {
     /*
      * (non-Javadoc) Method declared on CellEditor.
      */
+    @Override
     protected void doSetValue(Object newValue) {
         String[] oldValue = strValue;
 
@@ -353,30 +394,33 @@ public class URLChooserCellEditor extends CellEditor {
         } else if (newValue instanceof String) {
             strValue = splitStringIntoArray((String) newValue);
         } else if (newValue instanceof URL) {
-            strValue = new String[]{newValue.toString()};
+            strValue = new String[] { newValue.toString() };
         } else if (newValue instanceof URL[]) {
             strValue = URLChooser.urlArrayToStringArray((URL[]) newValue);
         }
 
         if (!Arrays.equals(oldValue, strValue)) {
-            if (m_chooser != null)
+            if (m_chooser != null) {
                 m_chooser.setSelectedValues(strValue);
+            }
         }
     }
 
     /**
-     * Default implementation is to tokenize the string into potentially multiple url strings separated by the ','
-     * character. May be subclassed to provide alternate tokenization.
-     *
-     * @param s The full url string that may be split.
-     * @return An array of url strings. If the incoming string represents a single url string then the array will
-     *         contain a single item.
+     * Default implementation is to tokenize the string into potentially multiple url strings
+     * separated by the ',' character. May be subclassed to provide alternate tokenization.
+     * 
+     * @param s
+     *            The full url string that may be split.
+     * @return An array of url strings. If the incoming string represents a single url string then
+     *         the array will contain a single item.
      */
     protected String[] splitStringIntoArray(String s) {
         StringTokenizer st = new StringTokenizer(s, ",");
         List list = new ArrayList();
-        while (st.hasMoreTokens())
+        while (st.hasMoreTokens()) {
             list.add(st.nextToken().trim());
+        }
 
         return (String[]) list.toArray(new String[0]);
     }
@@ -400,8 +444,9 @@ public class URLChooserCellEditor extends CellEditor {
                 value = token.substring(index + 1).trim();
             }
 
-            if (!key.equals("*.*"))
+            if (!key.equals("*.*")) {
                 filters.put(key, value);
+            }
         }
 
         if (m_chooser != null) {
@@ -412,10 +457,11 @@ public class URLChooserCellEditor extends CellEditor {
     }
 
     /**
-     * Handles a default selection event from the text control by applying the editor value and deactivating this cell
-     * editor.
-     *
-     * @param event the selection event
+     * Handles a default selection event from the text control by applying the editor value and
+     * deactivating this cell editor.
+     * 
+     * @param event
+     *            the selection event
      * @since 3.0
      */
     protected void handleDefaultSelection(SelectionEvent event) {
@@ -429,13 +475,16 @@ public class URLChooserCellEditor extends CellEditor {
     /**
      * Processes a key release event that occurred in this cell editor.
      * <p/>
-     * The <code>TextCellEditor</code> implementation of this framework method ignores when the RETURN key is pressed
-     * since this is handled in <code>handleDefaultSelection</code>. An exception is made for Ctrl+Enter for
-     * multi-line texts, since a default selection event is not sent in this case.
+     * The <code>TextCellEditor</code> implementation of this framework method ignores when the
+     * RETURN key is pressed since this is handled in <code>handleDefaultSelection</code>. An
+     * exception is made for Ctrl+Enter for multi-line texts, since a default selection event is not
+     * sent in this case.
      * </p>
-     *
-     * @param keyEvent the key event
+     * 
+     * @param keyEvent
+     *            the key event
      */
+    @Override
     protected void keyReleaseOccured(KeyEvent keyEvent) {
         Text text = m_chooser.getTextControl();
 
@@ -444,7 +493,8 @@ public class URLChooserCellEditor extends CellEditor {
             // Do not apply the editor value in response to an Enter key event
             // since this can be received from the IME when the intent is -not-
             // to apply the value.
-            // See bug 39074 [CellEditors] [DBCS] canna input mode fires bogus event from Text Control
+            // See bug 39074 [CellEditors] [DBCS] canna input mode fires bogus event from Text
+            // Control
             //
             // An exception is made for Ctrl+Enter for multi-line texts, since
             // a default selection event is not sent in this case.

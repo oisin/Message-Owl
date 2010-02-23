@@ -3,7 +3,7 @@
    <extension-point id="DestinationUI" name="DestinationUI" schema="schema/DestinationUI.exsd"/>
    <extension point="org.eclipse.wst.common.project.facet.core.facets">
       <project-facet
-            id="fuse.messaging">
+            id="message.owl.facet">
          <label>
             Messaging
          </label>
@@ -15,7 +15,7 @@
          </member>
       </project-facet>
       <project-facet-version
-            facet="fuse.messaging"
+            facet="message.owl.facet"
             version="1.0">
          <action
                id="org.fusesource.tools.messaging.install"
@@ -73,7 +73,7 @@
                 <test 
 		            forcePluginActivation="true"
         		    property="org.eclipse.wst.common.project.facet.core.projectFacet"
-            		value="fuse.messaging"/>
+            		value="message.owl.facet"/>
 			 </and>
          </triggerPoints>
          <possibleChildren>
@@ -213,7 +213,7 @@
             id="org.fusesource.tools.messaging.server.MessagingModuleFactory"
             projects="true">
 			<moduleType 
-				types="fuse.messaging.module"
+				types="message.owl.module"
 				versions="1.0">
 			</moduleType>
       </moduleFactory>
@@ -221,7 +221,7 @@
 	<extension
      	 point="org.eclipse.wst.server.core.moduleTypes">
    		<moduleType
-        	 id="fuse.messaging.module"
+        	 id="message.owl.module"
         	 name="Messaging Module">
    		</moduleType>
 	</extension>
@@ -312,14 +312,14 @@
        <image
              icon="icons/messaging_module.png"
              id="org.fusesource.tools.messaging.Module.Image"
-             typeIds="fuse.messaging.module">
+             typeIds="message.owl.module">
        </image>
     </extension>
     <extension
           point="org.eclipse.wst.common.project.facet.ui.images">
        <image
              category="org.fusesource.tools.core.fusecore.facets"
-             facet="fuse.messaging"
+             facet="message.owl.facet"
              path="icons/messaging_facet.gif"
              version="1.0">
        </image>

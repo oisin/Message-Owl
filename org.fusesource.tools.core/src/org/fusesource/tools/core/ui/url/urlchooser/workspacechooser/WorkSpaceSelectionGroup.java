@@ -1,5 +1,12 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 /** 
- 
+
  */
 
 package org.fusesource.tools.core.ui.url.urlchooser.workspacechooser;
@@ -12,12 +19,9 @@ import org.eclipse.core.resources.IContainer;
 import org.eclipse.core.resources.IFolder;
 import org.eclipse.core.resources.IProject;
 import org.eclipse.core.resources.IResource;
-import org.eclipse.core.resources.IWorkspace;
-import org.eclipse.core.resources.IWorkspaceRoot;
 import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.Path;
-import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.jface.dialogs.Dialog;
 import org.eclipse.jface.viewers.DoubleClickEvent;
 import org.eclipse.jface.viewers.IContentProvider;
@@ -42,12 +46,10 @@ import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.internal.ide.IDEWorkbenchMessages;
 import org.eclipse.ui.model.WorkbenchLabelProvider;
 import org.eclipse.ui.part.DrillDownComposite;
-import org.fusesource.tools.core.util.ResourceUtil;
-
 
 public class WorkSpaceSelectionGroup extends Composite {
     // The listener to notify of events
-    private Listener listener;
+    private final Listener listener;
 
     // Enable user to type in new container name
     private boolean allowNewContainerName = true;
@@ -63,8 +65,8 @@ public class WorkSpaceSelectionGroup extends Composite {
 
     protected TreeViewer treeViewer;
 
-	protected Text fileNameField;
-	
+    protected Text fileNameField;
+
     // the message to display at the top of this dialog
     private static final String DEFAULT_MSG_NEW_ALLOWED = IDEWorkbenchMessages.ContainerGroup_message;
 
@@ -74,7 +76,7 @@ public class WorkSpaceSelectionGroup extends Composite {
     private static final int SIZING_SELECTION_PANE_WIDTH = 320;
 
     private static final int SIZING_SELECTION_PANE_HEIGHT = 300;
-    
+
     protected List filtersList;
     /**
      * cutomizable label Provider for the treeViewer
@@ -84,115 +86,121 @@ public class WorkSpaceSelectionGroup extends Composite {
 
     /**
      * Creates a new instance of the widget.
-     *
-     * @param parent The parent widget of the group.
-     * @param listener A listener to forward events to. Can be null if
-     *	 no listener is required.
-     * @param allowNewContainerName Enable the user to type in a new container
-     *  name instead of just selecting from the existing ones.
+     * 
+     * @param parent
+     *            The parent widget of the group.
+     * @param listener
+     *            A listener to forward events to. Can be null if no listener is required.
+     * @param allowNewContainerName
+     *            Enable the user to type in a new container name instead of just selecting from the
+     *            existing ones.
      */
-    public WorkSpaceSelectionGroup(Composite parent, Listener listener,
-            boolean allowNewContainerName,List filters) {
-        this(parent, listener, allowNewContainerName, null,filters);
+    public WorkSpaceSelectionGroup(Composite parent, Listener listener, boolean allowNewContainerName, List filters) {
+        this(parent, listener, allowNewContainerName, null, filters);
     }
 
     /**
      * Creates a new instance of the widget.
-     *
-     * @param parent The parent widget of the group.
-     * @param listener A listener to forward events to.  Can be null if
-     *	 no listener is required.
-     * @param allowNewContainerName Enable the user to type in a new container
-     *  name instead of just selecting from the existing ones.
-     * @param message The text to present to the user.
+     * 
+     * @param parent
+     *            The parent widget of the group.
+     * @param listener
+     *            A listener to forward events to. Can be null if no listener is required.
+     * @param allowNewContainerName
+     *            Enable the user to type in a new container name instead of just selecting from the
+     *            existing ones.
+     * @param message
+     *            The text to present to the user.
      */
-    public WorkSpaceSelectionGroup(Composite parent, Listener listener,
-            boolean allowNewContainerName, String message,List filters) {
-        this(parent, listener, allowNewContainerName, message, true,filters);
+    public WorkSpaceSelectionGroup(Composite parent, Listener listener, boolean allowNewContainerName, String message,
+            List filters) {
+        this(parent, listener, allowNewContainerName, message, true, filters);
     }
 
     /**
      * Creates a new instance of the widget.
-     *
-     * @param parent The parent widget of the group.
-     * @param listener A listener to forward events to.  Can be null if
-     *	 no listener is required.
-     * @param allowNewContainerName Enable the user to type in a new container
-     *  name instead of just selecting from the existing ones.
-     * @param message The text to present to the user.
-     * @param showClosedProjects Whether or not to show closed projects.
+     * 
+     * @param parent
+     *            The parent widget of the group.
+     * @param listener
+     *            A listener to forward events to. Can be null if no listener is required.
+     * @param allowNewContainerName
+     *            Enable the user to type in a new container name instead of just selecting from the
+     *            existing ones.
+     * @param message
+     *            The text to present to the user.
+     * @param showClosedProjects
+     *            Whether or not to show closed projects.
      */
-    public WorkSpaceSelectionGroup(Composite parent, Listener listener,
-            boolean allowNewContainerName, String message,
-            boolean showClosedProjects,List filters) {
-        this(parent, listener, allowNewContainerName, message,
-                showClosedProjects, SIZING_SELECTION_PANE_HEIGHT,filters);
+    public WorkSpaceSelectionGroup(Composite parent, Listener listener, boolean allowNewContainerName, String message,
+            boolean showClosedProjects, List filters) {
+        this(parent, listener, allowNewContainerName, message, showClosedProjects, SIZING_SELECTION_PANE_HEIGHT,
+                filters);
     }
 
-    public void setLabelProvider(ILabelProvider lProvider){
-    	this.labelProvider = lProvider;
+    public void setLabelProvider(ILabelProvider lProvider) {
+        this.labelProvider = lProvider;
     }
-    
-    public void setContentProvider(IContentProvider cProvider){
-    	this.contentProvider = cProvider;
+
+    public void setContentProvider(IContentProvider cProvider) {
+        this.contentProvider = cProvider;
     }
+
     /**
      * Creates a new instance of the widget.
-     *
-     * @param parent The parent widget of the group.
-     * @param listener A listener to forward events to.  Can be null if
-     *	 no listener is required.
-     * @param allowNewContainerName Enable the user to type in a new container
-     *  name instead of just selecting from the existing ones.
-     * @param message The text to present to the user.
-     * @param showClosedProjects Whether or not to show closed projects.
-     * @param heightHint height hint for the drill down composite
+     * 
+     * @param parent
+     *            The parent widget of the group.
+     * @param listener
+     *            A listener to forward events to. Can be null if no listener is required.
+     * @param allowNewContainerName
+     *            Enable the user to type in a new container name instead of just selecting from the
+     *            existing ones.
+     * @param message
+     *            The text to present to the user.
+     * @param showClosedProjects
+     *            Whether or not to show closed projects.
+     * @param heightHint
+     *            height hint for the drill down composite
      */
-    public WorkSpaceSelectionGroup(Composite parent, Listener listener,
-            boolean allowNewContainerName, String message,
-            boolean showClosedProjects, int heightHint,List filters) {
+    public WorkSpaceSelectionGroup(Composite parent, Listener listener, boolean allowNewContainerName, String message,
+            boolean showClosedProjects, int heightHint, List filters) {
         super(parent, SWT.NONE);
         this.filtersList = filters;
         this.listener = listener;
         this.allowNewContainerName = allowNewContainerName;
         this.showClosedProjects = showClosedProjects;
-        String msg = message != null? message : allowNewContainerName? DEFAULT_MSG_NEW_ALLOWED:DEFAULT_MSG_SELECT_ONLY;
+        String msg = message != null ? message : allowNewContainerName ? DEFAULT_MSG_NEW_ALLOWED
+                : DEFAULT_MSG_SELECT_ONLY;
         createContents(msg, heightHint);
     }
 
-    public WorkSpaceSelectionGroup(Composite area, Listener listener2,
-			boolean allowNewContainerName2, String message,
-			boolean showClosedProjects2, List filters,
-			IFolder rootFolder) {
-    	this(area,listener2,allowNewContainerName2,message,showClosedProjects2,filters);
-		if (rootFolder != null) {
-			setInputForTreeViewer(rootFolder);
-			treeViewer.refresh();
-		}
-		// TODO Auto-generated constructor stub
-	}
+    public WorkSpaceSelectionGroup(Composite area, Listener listener2, boolean allowNewContainerName2, String message,
+            boolean showClosedProjects2, List filters, IFolder rootFolder) {
+        this(area, listener2, allowNewContainerName2, message, showClosedProjects2, filters);
+        if (rootFolder != null) {
+            setInputForTreeViewer(rootFolder);
+            treeViewer.refresh();
+        }
+        // TODO Auto-generated constructor stub
+    }
 
-	
-
-	/**
-     * The container selection has changed in the
-     * tree view. Update the container name field
-     * value and notify all listeners.
+    /**
+     * The container selection has changed in the tree view. Update the container name field value
+     * and notify all listeners.
      */
     public void containerSelectionChanged(IResource container) {
         selectedContainer = container;
         if (allowNewContainerName) {
-        	if( container == null ) {
-        		fileNameField.setText( "" );
+            if (container == null) {
+                fileNameField.setText("");
                 containerNameField.setText("");
-        	}
-        	else if( ( selectedContainer.getType() & IResource.FILE ) > 0 ) {
-        		containerNameField.setText( selectedContainer.getParent().getFullPath( ).makeRelative().toString() );
-        		fileNameField.setText( selectedContainer.getName() );
-        	}
-            else
-                containerNameField.setText(container.getFullPath()
-                        .makeRelative().toString());
+            } else if ((selectedContainer.getType() & IResource.FILE) > 0) {
+                containerNameField.setText(selectedContainer.getParent().getFullPath().makeRelative().toString());
+                fileNameField.setText(selectedContainer.getName());
+            } else {
+                containerNameField.setText(container.getFullPath().makeRelative().toString());
+            }
         }
 
         // fire an event so the parent can update its controls
@@ -214,7 +222,8 @@ public class WorkSpaceSelectionGroup extends Composite {
     /**
      * Creates the contents of the composite.
      * 
-     * @param heightHint height hint for the drill down composite
+     * @param heightHint
+     *            height hint for the drill down composite
      */
     public void createContents(String message, int heightHint) {
         GridLayout layout = new GridLayout();
@@ -228,8 +237,7 @@ public class WorkSpaceSelectionGroup extends Composite {
 
         if (allowNewContainerName) {
             containerNameField = new Text(this, SWT.SINGLE | SWT.BORDER);
-            containerNameField.setLayoutData(new GridData(
-                    GridData.FILL_HORIZONTAL));
+            containerNameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
             containerNameField.addListener(SWT.Modify, listener);
             containerNameField.setFont(this.getFont());
         } else {
@@ -238,31 +246,32 @@ public class WorkSpaceSelectionGroup extends Composite {
         }
 
         createTreeViewer(heightHint);
-        if( allowNewContainerName) {
-	        Composite cmpFileName = new Composite( this, SWT.NONE );
-	        GridLayout layFileName = new GridLayout( 2, false );
-	        layFileName.marginWidth = 0;
-	        cmpFileName.setLayout( layFileName );
-	        cmpFileName.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
-	        
-	        Label fileNameMsg = new Label( cmpFileName, SWT.NONE );
-	        fileNameMsg.setText( "File Name : " );
-	        fileNameMsg.setFont( this.getFont() );
-	        
-	        fileNameField = new Text( cmpFileName, SWT.SINGLE | SWT.BORDER );
-	        fileNameField.setLayoutData( new GridData( GridData.FILL_HORIZONTAL ) );
-	        fileNameField.addListener( SWT.Modify, listener );
-	        fileNameField.setFont( this.getFont() );
-	        fileNameField.setFocus();
+        if (allowNewContainerName) {
+            Composite cmpFileName = new Composite(this, SWT.NONE);
+            GridLayout layFileName = new GridLayout(2, false);
+            layFileName.marginWidth = 0;
+            cmpFileName.setLayout(layFileName);
+            cmpFileName.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+
+            Label fileNameMsg = new Label(cmpFileName, SWT.NONE);
+            fileNameMsg.setText("File Name : ");
+            fileNameMsg.setFont(this.getFont());
+
+            fileNameField = new Text(cmpFileName, SWT.SINGLE | SWT.BORDER);
+            fileNameField.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+            fileNameField.addListener(SWT.Modify, listener);
+            fileNameField.setFont(this.getFont());
+            fileNameField.setFocus();
         }
-        
+
         Dialog.applyDialogFont(this);
     }
 
     /**
      * Returns a new drill down viewer for this dialog.
-     *
-     * @param heightHint height hint for the drill down composite
+     * 
+     * @param heightHint
+     *            height hint for the drill down composite
      * @return a new drill down viewer
      */
     protected void createTreeViewer(int heightHint) {
@@ -280,12 +289,11 @@ public class WorkSpaceSelectionGroup extends Composite {
         IContentProvider cp = getContentProvider(showClosedProjects);
         treeViewer.setContentProvider(cp);
         ILabelProvider labelProvider = getLabelProvider();
-		treeViewer.setLabelProvider(labelProvider);
+        treeViewer.setLabelProvider(labelProvider);
         treeViewer.setSorter(new ViewerSorter());
         treeViewer.addSelectionChangedListener(new ISelectionChangedListener() {
             public void selectionChanged(SelectionChangedEvent event) {
-                IStructuredSelection selection = (IStructuredSelection) event
-                        .getSelection();
+                IStructuredSelection selection = (IStructuredSelection) event.getSelection();
                 containerSelectionChanged((IResource) selection.getFirstElement()); // allow null
             }
         });
@@ -293,12 +301,12 @@ public class WorkSpaceSelectionGroup extends Composite {
             public void doubleClick(DoubleClickEvent event) {
                 ISelection selection = event.getSelection();
                 if (selection instanceof IStructuredSelection) {
-                    Object item = ((IStructuredSelection) selection)
-                            .getFirstElement();
-                    if (treeViewer.getExpandedState(item))
+                    Object item = ((IStructuredSelection) selection).getFirstElement();
+                    if (treeViewer.getExpandedState(item)) {
                         treeViewer.collapseToLevel(item, 1);
-                    else
+                    } else {
                         treeViewer.expandToLevel(item, 1);
+                    }
                 }
             }
         });
@@ -306,123 +314,122 @@ public class WorkSpaceSelectionGroup extends Composite {
         // This has to be done after the viewer has been laid out
         treeViewer.setInput(ResourcesPlugin.getWorkspace());
     }
-	
-	private void setInputForTreeViewer(IFolder rootFolder) {
-		treeViewer.setInput(rootFolder);
-		
-	}
 
-	private void addFiltersOnTreeViewer() {
-		if(filtersList==null)
-			return;
-		for (Iterator iter = filtersList.iterator(); iter.hasNext();) {
-			Object element =  iter.next();
-			if(element instanceof ViewerFilter) {
-				ViewerFilter filter = (ViewerFilter) element;
-				treeViewer.addFilter(filter);
-			}
-		}
-	}
+    private void setInputForTreeViewer(IFolder rootFolder) {
+        treeViewer.setInput(rootFolder);
 
-	protected ILabelProvider getLabelProvider() {
-		return WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
-	}
+    }
 
-	protected IContentProvider getContentProvider(boolean showClosedProjects) {
-			return contentProvider==null ? getDefaultContentProvider(showClosedProjects):contentProvider;
-	}
+    private void addFiltersOnTreeViewer() {
+        if (filtersList == null) {
+            return;
+        }
+        for (Iterator iter = filtersList.iterator(); iter.hasNext();) {
+            Object element = iter.next();
+            if (element instanceof ViewerFilter) {
+                ViewerFilter filter = (ViewerFilter) element;
+                treeViewer.addFilter(filter);
+            }
+        }
+    }
 
-	private WorkspaceSelectionContentProvider getDefaultContentProvider(boolean showClosedProjects) {
-		return new WorkspaceSelectionContentProvider(showClosedProjects,null);
-	}
+    protected ILabelProvider getLabelProvider() {
+        return WorkbenchLabelProvider.getDecoratingWorkbenchLabelProvider();
+    }
+
+    protected IContentProvider getContentProvider(boolean showClosedProjects) {
+        return contentProvider == null ? getDefaultContentProvider(showClosedProjects) : contentProvider;
+    }
+
+    private WorkspaceSelectionContentProvider getDefaultContentProvider(boolean showClosedProjects) {
+        return new WorkspaceSelectionContentProvider(showClosedProjects, null);
+    }
 
     /**
-     * Returns the currently entered resource name.
-     * Null if the field is empty. Note that the
-     * resource may not exist yet if the user
-     * entered a new resource name in the field.
+     * Returns the currently entered resource name. Null if the field is empty. Note that the
+     * resource may not exist yet if the user entered a new resource name in the field.
      */
     public IPath getContainerFullPath() {
         if (allowNewContainerName) {
             String folderName = containerNameField.getText();
-            String fileName = fileNameField.getText( );
-            if (folderName == null || folderName.length() < 1 ||
-            		fileName == null || fileName.length() < 1 )
+            String fileName = fileNameField.getText();
+            if (folderName == null || folderName.length() < 1 || fileName == null || fileName.length() < 1) {
                 return null;
-            else{
-            	String pathName = getFullPathForFile( folderName + "/" + fileName );
-            	if(pathName==null)
-            		return null;
-            	return new Path(pathName);
+            } else {
+                String pathName = getFullPathForFile(folderName + "/" + fileName);
+                if (pathName == null) {
+                    return null;
+                }
+                return new Path(pathName);
             }
         } else {
-            if (selectedContainer == null)
+            if (selectedContainer == null) {
                 return null;
-            else
+            } else {
                 return selectedContainer.getLocation();
+            }
         }
     }
+
     // when user types the full file name
-	private String getFullPathForFile(String pathName) {
-		String workspacePath = null;
-		String path = removePathCharsInFront(pathName);
-		IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
-		for (int i = 0; i < allProjects.length; i++) {
-			final String name = allProjects[i].getName();
-			if(path.startsWith(name)) {
-				String projectPath = allProjects[i].getProject().getLocation().makeAbsolute().toPortableString();
-				workspacePath = path.replaceFirst(name,projectPath);
-			}
-		}
-		if(workspacePath==null)
-			return null;
-		return workspacePath;
-	}
+    private String getFullPathForFile(String pathName) {
+        String workspacePath = null;
+        String path = removePathCharsInFront(pathName);
+        IProject[] allProjects = ResourcesPlugin.getWorkspace().getRoot().getProjects();
+        for (IProject allProject : allProjects) {
+            final String name = allProject.getName();
+            if (path.startsWith(name)) {
+                String projectPath = allProject.getProject().getLocation().makeAbsolute().toPortableString();
+                workspacePath = path.replaceFirst(name, projectPath);
+            }
+        }
+        if (workspacePath == null) {
+            return null;
+        }
+        return workspacePath;
+    }
 
     private String removePathCharsInFront(String pathName) {
-    	int i=0;
-		for(;i<pathName.length();i++){
-			if(pathName.charAt(i)=='/' ||pathName.charAt(i)=='\\')
-				continue;
-			break;
-		}
-		if(i<pathName.length())
-			return pathName.substring(i);
-		return pathName;
-	}
-    
+        int i = 0;
+        for (; i < pathName.length(); i++) {
+            if (pathName.charAt(i) == '/' || pathName.charAt(i) == '\\') {
+                continue;
+            }
+            break;
+        }
+        if (i < pathName.length()) {
+            return pathName.substring(i);
+        }
+        return pathName;
+    }
+
     /**
-     * @author masif
-     * Returns the path relative to the workspace
-     * MAY BE NULL
      * @return path String
      */
     public IPath getRelativePath() {
-		if (selectedContainer == null)
-			return null;
-		else
-			return selectedContainer.getFullPath();
-	}
-    
+        if (selectedContainer == null) {
+            return null;
+        } else {
+            return selectedContainer.getFullPath();
+        }
+    }
 
-    public IPath getContainerRelativePath(){
-    	String folderName = containerNameField.getText();
-        String fileName = fileNameField.getText( );
-        if (folderName == null || folderName.length() < 1 ||
-        		fileName == null || fileName.length() < 1 ){
-                  	return null;
+    public IPath getContainerRelativePath() {
+        String folderName = containerNameField.getText();
+        String fileName = fileNameField.getText();
+        if (folderName == null || folderName.length() < 1 || fileName == null || fileName.length() < 1) {
+            return null;
         }
         return (new Path(folderName + "/" + fileName));
     }
-    
-  
-	/**
+
+    /**
      * Gives focus to one of the widgets in the group, as determined by the group.
      */
     public void setInitialFocus() {
-        if (allowNewContainerName)
+        if (allowNewContainerName) {
             containerNameField.setFocus();
-        else{
+        } else {
             treeViewer.getTree().setFocus();
         }
     }
@@ -432,7 +439,7 @@ public class WorkSpaceSelectionGroup extends Composite {
      */
     public void setSelectedLocation(IResource container) {
         selectedContainer = container;
-        //expand to and select the specified container
+        // expand to and select the specified container
         List itemsToExpand = new ArrayList();
         IContainer parent = container.getParent();
         while (parent != null) {
@@ -440,20 +447,22 @@ public class WorkSpaceSelectionGroup extends Composite {
             parent = parent.getParent();
         }
         treeViewer.setExpandedElements(itemsToExpand.toArray());
-        if( container.exists() )
-        	treeViewer.setSelection(new StructuredSelection(container), true);
-        else if( container.getType() == IResource.FILE ){
-        	treeViewer.setSelection(new StructuredSelection(container.getParent()), true);
-        	if( allowNewContainerName )
-        		fileNameField.setText( container.getName() );
+        if (container.exists()) {
+            treeViewer.setSelection(new StructuredSelection(container), true);
+        } else if (container.getType() == IResource.FILE) {
+            treeViewer.setSelection(new StructuredSelection(container.getParent()), true);
+            if (allowNewContainerName) {
+                fileNameField.setText(container.getName());
+            }
         }
     }
 
-	public void refreshView() {
-		treeViewer.refresh();
-	}
-	public TreeViewer getTreeViewer(){
-		return treeViewer;
-	}
+    public void refreshView() {
+        treeViewer.refresh();
+    }
+
+    public TreeViewer getTreeViewer() {
+        return treeViewer;
+    }
 
 }

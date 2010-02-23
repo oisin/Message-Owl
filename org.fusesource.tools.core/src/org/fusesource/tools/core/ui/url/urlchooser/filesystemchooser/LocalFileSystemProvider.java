@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.core.ui.url.urlchooser.filesystemchooser;
 
 import java.io.File;
@@ -13,14 +20,13 @@ import org.eclipse.swt.dnd.Transfer;
 import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.FileDialog;
 
-
 /**
  
  */
 public class LocalFileSystemProvider extends AbstractFileSystemProvider {
     private static final String DISPLAY_NAME = "Local File System";
     public static final String ID = "LocalFileSystemProvider";
-    private static boolean fileChooserDialog=false;
+    private static boolean fileChooserDialog = false;
 
     public LocalFileSystemProvider() {
     }
@@ -30,8 +36,9 @@ public class LocalFileSystemProvider extends AbstractFileSystemProvider {
     }
 
     public boolean validate(URL url) {
-        if (!url.getProtocol().equals("file"))
+        if (!url.getProtocol().equals("file")) {
             return false;
+        }
         String path = url.getPath();
         try {
             File file = new File(path);
@@ -43,12 +50,13 @@ public class LocalFileSystemProvider extends AbstractFileSystemProvider {
     }
 
     public URL[] browse(String initialPath) {
-    	fileChooserDialog=true;
+        fileChooserDialog = true;
         File file = getBestPossibleFile(initialPath);
-        FileDialog dialog = new FileDialog(Display.getCurrent().getActiveShell(),
-                SWT.OPEN | (isSingleSelection ? SWT.SINGLE : SWT.MULTI));
-        if (file != null)
+        FileDialog dialog = new FileDialog(Display.getCurrent().getActiveShell(), SWT.OPEN
+                | (isSingleSelection ? SWT.SINGLE : SWT.MULTI));
+        if (file != null) {
             dialog.setFilterPath(file.getAbsolutePath());
+        }
 
         if (filter != null) {
             dialog.setFilterNames(filter.getFilterNames());
@@ -56,15 +64,17 @@ public class LocalFileSystemProvider extends AbstractFileSystemProvider {
         }
 
         String s = dialog.open();
-        if (s == null)
+        if (s == null) {
             return null;
+        }
         URL[] urls = getURLs(dialog.getFilterPath(), dialog.getFileNames());
         return urls;
     }
 
     protected File getBestPossibleFile(String initialPath) {
-        if (initialPath == null)
+        if (initialPath == null) {
             return null;
+        }
         try {
             if (initialPath.startsWith("file:")) {
                 initialPath = initialPath.substring("file:".length());
@@ -82,10 +92,9 @@ public class LocalFileSystemProvider extends AbstractFileSystemProvider {
         return null;
     }
 
-    protected URL[] getURLs(String path, String [] fileNames) {
+    protected URL[] getURLs(String path, String[] fileNames) {
         List list = new ArrayList();
-        for (int i = 0; i < fileNames.length; i++) {
-            String fileName = fileNames[i];
+        for (String fileName : fileNames) {
             try {
                 URL url = new File(path, fileName).toURL();
                 list.add(url);
@@ -93,49 +102,53 @@ public class LocalFileSystemProvider extends AbstractFileSystemProvider {
                 e.printStackTrace();
             }
         }
-        return (URL[])list.toArray(new URL[list.size()]);
+        return (URL[]) list.toArray(new URL[list.size()]);
     }
 
     public String getID() {
         return ID;
     }
 
+    @Override
     public URL[] acceptDroppedData(DropTargetEvent event) {
-        if (!FileTransfer.getInstance().isSupportedType(event.currentDataType))
+        if (!FileTransfer.getInstance().isSupportedType(event.currentDataType)) {
             return super.acceptDroppedData(event);
+        }
 
         Object transferData = event.data;
         if (transferData instanceof String[]) {
-            String[] files = (String[])transferData;
+            String[] files = (String[]) transferData;
             List urls = new ArrayList(files.length);
-            for (int i = 0; i < files.length; i++) {
-                String _file = files[i];
+            for (String _file : files) {
                 File file = new File(_file);
                 try {
-                    if (file.exists())
+                    if (file.exists()) {
                         urls.add(file.toURL());
+                    }
                 } catch (MalformedURLException e) {
                     e.printStackTrace();
                 }
             }
-            return (URL[])urls.toArray(new URL[urls.size()]);
+            return (URL[]) urls.toArray(new URL[urls.size()]);
         }
         return super.acceptDroppedData(event);
     }
 
+    @Override
     public boolean supportsDnd() {
         return true;
     }
 
+    @Override
     public Transfer[] getTransferTypes() {
         return new Transfer[] { FileTransfer.getInstance() };
     }
-    
-    public static boolean isFileChooserDialogOpen(){
-    	return fileChooserDialog;
+
+    public static boolean isFileChooserDialogOpen() {
+        return fileChooserDialog;
     }
-    
-    public static void setFileChooserDialogOpen(boolean closed){
-    	 fileChooserDialog=closed;
+
+    public static void setFileChooserDialogOpen(boolean closed) {
+        fileChooserDialog = closed;
     }
 }

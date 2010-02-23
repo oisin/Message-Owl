@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.messaging.utils;
 
 import java.util.List;
@@ -12,62 +19,54 @@ import org.fusesource.tools.message.utils.MessageManager;
 import org.fusesource.tools.messaging.core.IProvider;
 import org.fusesource.tools.messaging.core.ISender;
 
-
-/**
- * 
- * @since
- * @author sgupta
- * @version 1.0
- */
-
 public class MessageLoader extends MessageManager {
 
-	public static Message getLoadedMessage(IFile ifile, ISender sender) {
-		if (ifile.getFileExtension().equalsIgnoreCase(MessageEditorConstants.MESSAGE_FILE_EXTENSION)) {
-			return loadMessage(ifile);
-		} else {
-			IMessageType messageType = findHandler(sender, ifile);
-			if (messageType == null) {
-				return null;
-			}
-			return messageType.load(ifile);
-		}
-	}
+    public static Message getLoadedMessage(IFile ifile, ISender sender) {
+        if (ifile.getFileExtension().equalsIgnoreCase(MessageEditorConstants.MESSAGE_FILE_EXTENSION)) {
+            return loadMessage(ifile);
+        } else {
+            IMessageType messageType = findHandler(sender, ifile);
+            if (messageType == null) {
+                return null;
+            }
+            return messageType.load(ifile);
+        }
+    }
 
-	public static Message getLoadedMessage(String fileUrl, ISender sender) {
-		if (fileUrl.endsWith(MessageEditorConstants.MESSAGE_FILE_EXTENSION)) {
-			return loadMessage(fileUrl);
-		} else {
-			IMessageType messageType = findHandler(sender, fileUrl);
-			if (messageType == null) {
-				return null;
-			}
-			return messageType.load(fileUrl);
-		}
-	}
+    public static Message getLoadedMessage(String fileUrl, ISender sender) {
+        if (fileUrl.endsWith(MessageEditorConstants.MESSAGE_FILE_EXTENSION)) {
+            return loadMessage(fileUrl);
+        } else {
+            IMessageType messageType = findHandler(sender, fileUrl);
+            if (messageType == null) {
+                return null;
+            }
+            return messageType.load(fileUrl);
+        }
+    }
 
-	public static IMessageType findHandler(ISender sender, Object object) {
-		String providerId = null;
-		if (sender != null) {
-			IProvider provider = sender.getDestination().getConnection().getProvider();
-			providerId = provider.getId();
-		}
-		IMessageType messageType = providerSpecificMessageType(object, providerId);
-		return messageType;
-	}
+    public static IMessageType findHandler(ISender sender, Object object) {
+        String providerId = null;
+        if (sender != null) {
+            IProvider provider = sender.getDestination().getConnection().getProvider();
+            providerId = provider.getId();
+        }
+        IMessageType messageType = providerSpecificMessageType(object, providerId);
+        return messageType;
+    }
 
-	private static IMessageType providerSpecificMessageType(Object object, String providerId) {
-		IMessageType supportedMessageType = null;
-		List<IMessageType> messageTypeExtensions = MessageExtensionsMgr.getInstance().getMessageTypeExtensions();
-		String extension = getExtension(object);
-		for (IMessageType messageType : messageTypeExtensions) {
-			if (doMatch(messageType, extension)) {
-				supportedMessageType = messageType;
-				if (!messageType.getProviderId().equalsIgnoreCase(MessageConstants.DEFAULT_PROVIDER)) {
-					break;
-				}
-			}
-		}
-		return supportedMessageType;
-	}
+    private static IMessageType providerSpecificMessageType(Object object, String providerId) {
+        IMessageType supportedMessageType = null;
+        List<IMessageType> messageTypeExtensions = MessageExtensionsMgr.getInstance().getMessageTypeExtensions();
+        String extension = getExtension(object);
+        for (IMessageType messageType : messageTypeExtensions) {
+            if (doMatch(messageType, extension)) {
+                supportedMessageType = messageType;
+                if (!messageType.getProviderId().equalsIgnoreCase(MessageConstants.DEFAULT_PROVIDER)) {
+                    break;
+                }
+            }
+        }
+        return supportedMessageType;
+    }
 }

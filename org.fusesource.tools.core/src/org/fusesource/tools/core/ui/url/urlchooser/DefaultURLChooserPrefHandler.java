@@ -1,3 +1,10 @@
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
 package org.fusesource.tools.core.ui.url.urlchooser;
 
 import java.net.MalformedURLException;
@@ -15,7 +22,7 @@ import org.eclipse.ui.PlatformUI;
 /**
  * To change this template use File | Settings | File Templates.
  */
-public class DefaultURLChooserPrefHandler  {
+public class DefaultURLChooserPrefHandler {
     private static DefaultURLChooserPrefHandler urlChooserPrefHandler = null;
     private IPreferenceStore store = PlatformUI.getPreferenceStore();
 
@@ -23,8 +30,9 @@ public class DefaultURLChooserPrefHandler  {
     }
 
     public static DefaultURLChooserPrefHandler getInstance() {
-        if (urlChooserPrefHandler == null)
+        if (urlChooserPrefHandler == null) {
             urlChooserPrefHandler = new DefaultURLChooserPrefHandler();
+        }
         return urlChooserPrefHandler;
     }
 
@@ -37,7 +45,7 @@ public class DefaultURLChooserPrefHandler  {
         return _getURLs(getURLStrings(context));
     }
 
-    private List _getURLs(Set urlSet){
+    private List _getURLs(Set urlSet) {
         List urls = new ArrayList(urlSet.size());
         for (Iterator iterator = urlSet.iterator(); iterator.hasNext();) {
             try {
@@ -63,12 +71,13 @@ public class DefaultURLChooserPrefHandler  {
         Set urlsSet = getURLStrings(context);
         List urls = _getURLs(urlsSet);
         String urlString = url.toString();
-        if(urlsSet.contains(urlString)){
-            if(urls.indexOf(url)==0)
-        		return;//url passed is already at beginnning of list
-        	urls.remove(url);
+        if (urlsSet.contains(urlString)) {
+            if (urls.indexOf(url) == 0) {
+                return;// url passed is already at beginnning of list
+            }
+            urls.remove(url);
         }
-        urls.add(0,url);
+        urls.add(0, url);
         addToPrefStore(context, urls);
     }
 
@@ -82,14 +91,16 @@ public class DefaultURLChooserPrefHandler  {
         for (int i = 0; i < urlList.size(); i++) {
             URL url = (URL) urlList.get(i);
             buffer.append(url.toString());
-            if (i != (urlList.size() - 1))
+            if (i != (urlList.size() - 1)) {
                 buffer.append(",");
+            }
         }
         return buffer.toString();
     }
 
     /**
      * removes the url from the list of urls stored against the passed context
+     * 
      * @param context
      * @param url
      */

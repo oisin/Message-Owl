@@ -1,4 +1,11 @@
-// Copyright © 2009 Progress Software Corporation. All Rights Reserved.
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
+// Copyright (c) 2009 Progress Software Corporation.  
 package org.fusesource.tools.messaging.jms.ui;
 
 import java.util.Map;
@@ -20,161 +27,158 @@ import org.fusesource.tools.messaging.jms.JMSDestination;
 import org.fusesource.tools.messaging.ui.DestinationUtil;
 import org.fusesource.tools.messaging.ui.dialogs.ListenerDestinationDialog;
 
-
-/**
- * 
- * @since 
- * @author sgupta
- * @version 
- */
 public class JMSListenerDestinationDialog extends ListenerDestinationDialog {
-	private Button checkButton;
-	private Text messageSelectorTxt;
-	private Text subscriptionName;
-	boolean isUICreated;
+    private Button checkButton;
+    private Text messageSelectorTxt;
+    private Text subscriptionName;
+    boolean isUICreated;
 
-	public JMSListenerDestinationDialog() {
-		super();
-	}
+    public JMSListenerDestinationDialog() {
+        super();
+    }
 
-	@Override
-	protected String getMessage() {
-		return "Enter destination details to create a JMS Listener";
-	}
+    @Override
+    protected String getMessage() {
+        return "Enter destination details to create a JMS Listener";
+    }
 
-	@Override
-	protected String getTitle() {
-		return "Add JMS Listener";
-	}
+    @Override
+    protected String getTitle() {
+        return "Add JMS Listener";
+    }
 
-	@Override
-	protected String getDialogTitle() {
-		return "Add JMS Listener";
-	}
+    @Override
+    protected String getDialogTitle() {
+        return "Add JMS Listener";
+    }
 
-	@Override
-	protected boolean hasAdvanceSection() {
-		return true;
-	}
+    @Override
+    protected boolean hasAdvanceSection() {
+        return true;
+    }
 
-	@Override
-	protected void createAdvancedUI(Composite composite) {
-		populateProperties();
-		createPropertiesSection(composite);
-		isUICreated = true;
-		validate();
-	}
-	
-	@Override
-	protected void validate() {
-		super.validate();
-		if(!isUICreated)
-			return;
-		String destType = destTypesCombo.getItem(destTypesCombo.getSelectionIndex());
-		if (JMSConstants.TOPIC_TYPE.equals(destType)) {
-			checkButton.setEnabled(true);
-			subscriptionName.setEnabled(checkButton.getSelection());
-		} else {
-			checkButton.setEnabled(false);
-			subscriptionName.setEnabled(checkButton.isEnabled() && checkButton.getSelection());
-		}
-	}
+    @Override
+    protected void createAdvancedUI(Composite composite) {
+        populateProperties();
+        createPropertiesSection(composite);
+        isUICreated = true;
+        validate();
+    }
 
-	@Override
-	protected void okPressed() {
-		updateData();
-		super.okPressed();
-	}
+    @Override
+    protected void validate() {
+        super.validate();
+        if (!isUICreated) {
+            return;
+        }
+        String destType = destTypesCombo.getItem(destTypesCombo.getSelectionIndex());
+        if (JMSConstants.TOPIC_TYPE.equals(destType)) {
+            checkButton.setEnabled(true);
+            subscriptionName.setEnabled(checkButton.getSelection());
+        } else {
+            checkButton.setEnabled(false);
+            subscriptionName.setEnabled(checkButton.isEnabled() && checkButton.getSelection());
+        }
+    }
 
-	protected void updateData() {
-		if (isUICreated) {
-			if (checkButton.getSelection())
-				listenerProperties.put(JMSConstants.DURABLE_SUBSCRIPTION_NAME, subscriptionName.getText().trim());
-			listenerProperties.put(JMSConstants.JMS_MESSAGE_SELECTOR, messageSelectorTxt.getText().trim());
-		}
-		super.updateData();
-		if (getCreatedDestination() != null) {
-			((JMSDestination) getCreatedDestination()).setDestinationName(getDestName());
-			((JMSDestination) getCreatedDestination()).setDestinationType(getDestinationType());
-		}
-	}
+    @Override
+    protected void okPressed() {
+        updateData();
+        super.okPressed();
+    }
 
-	private void populateProperties() {
-		// TODO - Creation of destination should not be here
-		if (createdDestination == null) {
-			try {
-				IConnection connection = DestinationUtil.getConnection(getProvider());
-				if (connection != null)
-					createdDestination = connection.createDestination(getDestinationType(), getDestName());
-			} catch (MessagingException e) {
-				e.printStackTrace();
-			}
-		}
-		if (createdDestination != null) {
-			Map<String, Object> propsFromDest = createdDestination.getListenerProperties();
-			if (propsFromDest != null && !propsFromDest.isEmpty()) {
-				// TODO Not making use of this at present - show this in table
-				listenerProperties.putAll(propsFromDest);
-			}
-		}
-	}
+    @Override
+    protected void updateData() {
+        if (isUICreated) {
+            if (checkButton.getSelection()) {
+                listenerProperties.put(JMSConstants.DURABLE_SUBSCRIPTION_NAME, subscriptionName.getText().trim());
+            }
+            listenerProperties.put(JMSConstants.JMS_MESSAGE_SELECTOR, messageSelectorTxt.getText().trim());
+        }
+        super.updateData();
+        if (getCreatedDestination() != null) {
+            ((JMSDestination) getCreatedDestination()).setDestinationName(getDestName());
+            ((JMSDestination) getCreatedDestination()).setDestinationType(getDestinationType());
+        }
+    }
 
-	private void createPropertiesSection(Composite composite) {
-		GridLayout gridLayout = new GridLayout();
-		gridLayout.numColumns = 1;
-		composite.setLayout(gridLayout);
+    private void populateProperties() {
+        // TODO - Creation of destination should not be here
+        if (createdDestination == null) {
+            try {
+                IConnection connection = DestinationUtil.getConnection(getProvider());
+                if (connection != null) {
+                    createdDestination = connection.createDestination(getDestinationType(), getDestName());
+                }
+            } catch (MessagingException e) {
+                e.printStackTrace();
+            }
+        }
+        if (createdDestination != null) {
+            Map<String, Object> propsFromDest = createdDestination.getListenerProperties();
+            if (propsFromDest != null && !propsFromDest.isEmpty()) {
+                // TODO Not making use of this at present - show this in table
+                listenerProperties.putAll(propsFromDest);
+            }
+        }
+    }
 
-		GridData data = new GridData();
-		data.grabExcessHorizontalSpace = true;
-		data.horizontalAlignment = SWT.FILL;
-		Group listenerPropsGroup = new Group(composite, SWT.NONE);
-		listenerPropsGroup.setText("Listener Properties");
-		listenerPropsGroup.setLayout(new GridLayout(2, false));
-		listenerPropsGroup.setLayoutData(data);
-		createDurablePropertyUI(listenerPropsGroup);
-		createMsgSelectorPropertyUI(listenerPropsGroup);
-	}
+    private void createPropertiesSection(Composite composite) {
+        GridLayout gridLayout = new GridLayout();
+        gridLayout.numColumns = 1;
+        composite.setLayout(gridLayout);
 
-	private void createMsgSelectorPropertyUI(Group listenerPropsGroup) {
-		Label label = new Label(listenerPropsGroup, SWT.NONE);
-		label.setText("Message Selector: ");
-		GridData data = new GridData();
-		data.grabExcessHorizontalSpace = true;
-		data.horizontalAlignment = SWT.FILL;
-		messageSelectorTxt = new Text(listenerPropsGroup, SWT.BORDER);
-		messageSelectorTxt.setLayoutData(data);
-	}
+        GridData data = new GridData();
+        data.grabExcessHorizontalSpace = true;
+        data.horizontalAlignment = SWT.FILL;
+        Group listenerPropsGroup = new Group(composite, SWT.NONE);
+        listenerPropsGroup.setText("Listener Properties");
+        listenerPropsGroup.setLayout(new GridLayout(2, false));
+        listenerPropsGroup.setLayoutData(data);
+        createDurablePropertyUI(listenerPropsGroup);
+        createMsgSelectorPropertyUI(listenerPropsGroup);
+    }
 
-	private void createDurablePropertyUI(Group listenerPropsGroup) {
-		Label durableSub = new Label(listenerPropsGroup, SWT.NONE);
-		durableSub.setText("Durable Subscriber:");
-		Composite durableComp = new Composite(listenerPropsGroup, SWT.NONE);
-		durableComp.setLayout(new GridLayout(4, false));
-		GridData data = new GridData();
-		data.grabExcessHorizontalSpace = true;
-		data.horizontalAlignment = SWT.FILL;
-		durableComp.setLayoutData(data);
-		checkButton = new Button(durableComp, SWT.CHECK);
-		Label durable = new Label(durableComp, SWT.NONE);
-		durable.setText("Durable");
-		Label subLabel = new Label(durableComp, SWT.NONE);
-		data = new GridData(SWT.CENTER);
-		subLabel.setLayoutData(data);
-		subLabel.setText("Subscription Name:");
-		subscriptionName = new Text(durableComp, SWT.BORDER);
-		subscriptionName.setEnabled(false);
-		data = new GridData();
-		data.grabExcessHorizontalSpace = true;
-		data.horizontalAlignment = SWT.FILL;
-		subscriptionName.setLayoutData(data);
-		checkButton.addSelectionListener(new SelectionListener() {
-			public void widgetDefaultSelected(SelectionEvent e) {
-			}
+    private void createMsgSelectorPropertyUI(Group listenerPropsGroup) {
+        Label label = new Label(listenerPropsGroup, SWT.NONE);
+        label.setText("Message Selector: ");
+        GridData data = new GridData();
+        data.grabExcessHorizontalSpace = true;
+        data.horizontalAlignment = SWT.FILL;
+        messageSelectorTxt = new Text(listenerPropsGroup, SWT.BORDER);
+        messageSelectorTxt.setLayoutData(data);
+    }
 
-			public void widgetSelected(SelectionEvent e) {
-				subscriptionName.setEnabled(checkButton.getSelection());
-			}
+    private void createDurablePropertyUI(Group listenerPropsGroup) {
+        Label durableSub = new Label(listenerPropsGroup, SWT.NONE);
+        durableSub.setText("Durable Subscriber:");
+        Composite durableComp = new Composite(listenerPropsGroup, SWT.NONE);
+        durableComp.setLayout(new GridLayout(4, false));
+        GridData data = new GridData();
+        data.grabExcessHorizontalSpace = true;
+        data.horizontalAlignment = SWT.FILL;
+        durableComp.setLayoutData(data);
+        checkButton = new Button(durableComp, SWT.CHECK);
+        Label durable = new Label(durableComp, SWT.NONE);
+        durable.setText("Durable");
+        Label subLabel = new Label(durableComp, SWT.NONE);
+        data = new GridData(SWT.CENTER);
+        subLabel.setLayoutData(data);
+        subLabel.setText("Subscription Name:");
+        subscriptionName = new Text(durableComp, SWT.BORDER);
+        subscriptionName.setEnabled(false);
+        data = new GridData();
+        data.grabExcessHorizontalSpace = true;
+        data.horizontalAlignment = SWT.FILL;
+        subscriptionName.setLayoutData(data);
+        checkButton.addSelectionListener(new SelectionListener() {
+            public void widgetDefaultSelected(SelectionEvent e) {
+            }
 
-		});
-	}
+            public void widgetSelected(SelectionEvent e) {
+                subscriptionName.setEnabled(checkButton.getSelection());
+            }
+
+        });
+    }
 }

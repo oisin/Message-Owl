@@ -1,4 +1,11 @@
-// Copyright © 2009 Progress Software Corporation. All Rights Reserved.
+/*******************************************************************************
+ * Copyright (c) 2009, 2010 Progress Software Corporation.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ ******************************************************************************/
+// Copyright (c) 2009 Progress Software Corporation.  
 package org.fusesource.tools.core.ui.viewer.actions;
 
 import org.eclipse.jface.text.ITextOperationTarget;
@@ -7,15 +14,15 @@ import org.eclipse.ui.actions.ActionFactory;
 
 public class CopyAction extends SourceViewerAction {
 
-	public CopyAction(SourceViewer sourceViewer) {
-		super(sourceViewer, ITextOperationTarget.COPY);
-		setProperties();
-	}
+    public CopyAction(SourceViewer sourceViewer) {
+        super(sourceViewer, ITextOperationTarget.COPY);
+        setProperties();
+    }
 
-	public void setProperties() {
-		setText(ActionConstants.COPY_EDIT);
-		// setActionDefinitionId("org.eclipse.ui.edit.copy");
-		setId(ActionFactory.COPY.getId());
-	}
+    public void setProperties() {
+        setText(ActionConstants.COPY_EDIT);
+        // setActionDefinitionId("org.eclipse.ui.edit.copy");
+        setId(ActionFactory.COPY.getId());
+    }
 
 }
