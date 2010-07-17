@@ -14,10 +14,11 @@ The way most developers get started contributing to a project.
 ### Prequisites
 
 *Required:*
-* Java 1.5
-* An installed  Eclipse JEE package from [Eclipse 3.5](http://www.eclipse.org/downloads/)
-* Get the latest [Source](source.html)
-* If you are doing a non-IDE build, download and [install Buckminster](buckminster.html)
+
+ * Java 1.5
+ * An installed  Eclipse JEE package from [Eclipse 3.5](http://www.eclipse.org/downloads/)
+ * Get the latest [Source](source.html)
+ * If you are doing a non-IDE build, download and [install Buckminster](buckminster.html)
 
 ### Build set-up
 
@@ -31,12 +32,12 @@ The incantations below assume that the Buckminster start script is on your PATH 
 
  * Build from the *source* directory
 
-<code>
-    $ git clone git://github.com/oisin/Message-Owl.git
-    $ cd Messag-Owl <br/>
+<p><code>
+    $ git clone git://github.com/oisin/{project_id:}.git <br/>
+    $ cd {project_id:} <br/>
     $ export PATH=$PATH:<em>buckminster</em> <br/>
     $ ./build.sh -p <em>platform</em>
-</code>
+</code></p>
    
 At this point you will see a pile of compiler warnings going by - there are some deprecation warnings as well as warnings related to use of non-parameterized generics. If these are bothering you, remember we love [contributions](contributing.html)!
 

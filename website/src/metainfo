@@ -18,8 +18,7 @@
   # -------------------------------------------------------------------
   project_name: "Message Owl"
   project_slogan: 'Message Owl sees and approves your messages'
-  project_id: 'msgo'
-  project_jira_key: 'MSGO'
+  project_id: 'Message-Owl'
   project_issue_url: 'http://github.com/oisin/Message-Owl/issues'
   project_forums_url: 'http://github.com/oisin/Message-Owl/issues'
   project_wiki_url: 'http://github.com/oisin/Message-Owl/issues'
