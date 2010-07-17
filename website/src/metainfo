@@ -20,19 +20,12 @@
   project_slogan: 'Message Owl sees and approves your messages'
   project_id: 'msgo'
   project_jira_key: 'MSGO'
-  project_issue_url: 'http://fusesource.com/issues/browse/MSGO'
-  project_forums_url: 'http://fusesource.com/forums'
-  project_wiki_url: 'http://fusesource.com/wiki/display/MSGO'
+  project_issue_url: 'http://github.com/oisin/Message-Owl/issues'
+  project_forums_url: 'http://github.com/oisin/Message-Owl/issues'
+  project_wiki_url: 'http://github.com/oisin/Message-Owl/issues'
   project_logo: "/images/owl160x160.gif"
 
-  # -------------------------------------------------------------------
-  # TODO it would be nice to define these in terms of the project_id variable!
-  # -------------------------------------------------------------------
-  project_svn_url: 'http://fusesource.com/forge/svn/myproject/trunk'
-  project_svn_branches_url: 'http://fusesource.com/forge/svn/myproject/branches'
-  project_svn_tags_url: 'http://fusesource.com/forge/svn/myproject/tags'
-  project_maven_groupId: 'org.fusesource.myproject'
-  project_maven_artifactId: myproject
+  buck_download: 'http://github.com/downloads/oisin/Message-Owl/buckminster-3.5.zip'
 
 blog/*/**/*:
   template: /styles/impact/blog.template

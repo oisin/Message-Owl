@@ -10,17 +10,10 @@ Download it today!
 --- name:content
 
 <div class="left" markdown="1">
-# Visit our Update Site
-</div>
-<div class="right" markdown="1">
-Point your Eclipse installation to the developer updates site at [http://repo.fusesource.com/projects/msgo/dev/updates](http://repo.fusesource.com/projects/msgo/dev/updates)
-</div>
-
-<div class="left" markdown="1">
 # Grab a zipped version of the update site
 </div>
 <div class="right" markdown="1">
-All developer update sites are available as zip files for download at [http://repo.fusesource.com/projects/msgo/dev/](http://repo.fusesource.com/projects/msgo/dev)
+All developer update sites are available as zip files for download at [http://github.com/oisin/Message-Owl/downloads](http://github.com/oisin/Message-Owl/downloads)
 </div>
 
 <div class="left" markdown="1">

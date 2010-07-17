@@ -32,8 +32,8 @@ The incantations below assume that the Buckminster start script is on your PATH 
  * Build from the *source* directory
 
 <code>
-    $ git clone git://forge.fusesource.com/msgo.git <br/>
-    $ cd msgo <br/>
+    $ git clone git://github.com/oisin/Message-Owl.git
+    $ cd Messag-Owl <br/>
     $ export PATH=$PATH:<em>buckminster</em> <br/>
     $ ./build.sh -p <em>platform</em>
 </code>

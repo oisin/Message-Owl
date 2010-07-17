@@ -17,7 +17,7 @@ This tool builds Eclipse update sites without needing Ant, Maven, or an IDE.
 
 But we are going to skip all that. [Message Owl](index.html) makes things a little bit easier by offering fully-configured downloads of Buckminster at 
 
-* [Buckminster zip for Eclipse 3.5](http://repo.fusesource.com/projects/msgo/dev/tools/buckminster-3.5.zip) 
+* [Buckminster zip for Eclipse 3.5]({buck_download:}) 
 * Buckminster zip for Eclipse 3.6 *not available just yet!*
 
 Download and unpack the zip for the version of Eclipse platform that you are using, then return to the [build instructions](building.html).

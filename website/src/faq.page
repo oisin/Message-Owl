@@ -23,17 +23,13 @@ General questions on the *{project_name:}* project.
 
 The Message Owl code is licensed under the [Eclipse Public License v1.0](http://www.eclipse.org/legal/epl-v10.html). Some of the Message Owl bundles may contain a mixture of differently licensed code, for example a jar file or classes from an Apache project, licensed under the compatible Apache Software License. Each Eclipse plug-in bundle contains an about.html file that contains the licensing details of the bundle content, so check that for details.
 
-### How do I contribute or become a committer?
-
-We love [contributions](contributing.html)! More details on how to contribute and how to become a committer are in the [contributing guide](contributing.html).
-
 ### How does the website work?
 
 For details on how to edit the website and how it works see [How the Site works](site.html)
 
 ### Where do I report bugs?
 
-We have a [JIRA issue tracker](http://fusesource.com/issues/browse/MSGO) for that, please enter your bug there.
+Use the [issue tracker](http://github.com/oisin/Message-Owl/issues) for that, please enter your bug there.
 
 ### Is there a mailing list I can join or view?
 
