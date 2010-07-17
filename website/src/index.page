@@ -28,13 +28,13 @@ You can always ask questions and find more detailed information on [the mailing 
 
 ## Found a bug?
 
-Run - don't walk - to our [JIRA bugtracker](http://fusesource.com/issues/browse/MSGO) to report the issue. You will need to log in to the JIRA before you can make the report - this is our way of stopping the JIRA instance being spammed into oblivion by porn-peddlers and hawkers of dodgy chemical enhancements. It's quick and easy to [register and set up a login](https://fusesource.com/login).
+Run - don't walk - to our [bugtracker](http://github.com/oisin/Message-Owl/issues) to report the issue. 
 
 ## What's going on right now?
 
 The usual open-source stuff, fixing
 the build, fixing the website,
-fixing the JIRAs, maybe even getting
+fixing the issues, maybe even getting
 some new features in. There's a very
 [non-fancy Blog](blog/index.html) 
 here on the site that has
