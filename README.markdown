@@ -9,6 +9,10 @@
 
 *Message Owl* is distributed as a [p2 update site](http://github.com/oisin/Message-Owl/downloads) and is easily installed using the Eclipse <tt>Help &gt; Install New Software</tt> action.
 
+*Message Owl* was previously part of the FUSE Integration Designer product, which has ceased development. Original authors are *sgupta* and *kiranb*, both Eclipse developers in Progress Software's Hyderabad office. Good work guys!
+
+## Getting started
+
 ## Getting started
 
 Visit the [download page](http://github.com/oisin/Message-Owl/downloads) for instructions on how to update your Eclipse installation.
