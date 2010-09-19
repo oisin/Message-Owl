@@ -13,8 +13,6 @@
 
 ## Getting started
 
-## Getting started
-
 Visit the [download page](http://github.com/oisin/Message-Owl/downloads) for instructions on how to update your Eclipse installation.
 
 Check out the [user guide](http://nis.io/code/msgo/documentation/index.html) for information on how to drive it.
