@@ -15,9 +15,7 @@
 
 Visit the [download page](http://github.com/oisin/Message-Owl/downloads) for instructions on how to update your Eclipse installation.
 
-Check out the [user guide](http://nis.io/code/msgo/documentation/index.html) for information on how to drive it.
-
-You can always ask questions and find more detailed information on [the mailing lists](http://nis.io/code/msgo/community.html).
+You can always ask questions and maybe find more detailed information on [the mailing list](http://eclipse-message-owl.1049820.n5.nabble.com/).
 
 ## Found a bug?
 
@@ -25,20 +23,6 @@ Run - don't walk - to our [bugtracker](http://github.com/oisin/Message-Owl/issue
 
 ## What's going on right now?
 
-The usual open-source stuff, fixing
-the build, fixing the website,
-fixing the issues, maybe even getting
-some new features in. There's a very
-[non-fancy Blog](http://nis.io/code/msgo/blog/index.html) 
-here on the site that has
-announcements and a [low-traffic RSS
-feed](http://nis.io/code/msgo/blog/index.rss).
-
-Visit the
-[community page](http://nis.io/code/msgo/community.html) for
-details of mailing lists and other
-ways to get in touch or find out
-what is going on.
-
-
-
+Nothing much going on at the moment - this is a small project that
+needs some work - specifically tests and an update for the latest
+Eclipse and messaging systems integration. It's low-priority.
