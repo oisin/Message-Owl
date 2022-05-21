@@ -1,5 +1,10 @@
-# Message Owl
+|Public Health Warning|
+|:-:|
+| Previously, this was a work in progress. Now it's just a historical work. Please consider this project _OBSOLETE_
+|**DO NOT USE**
 
+
+# Message Owl
 
 ## Message Owl: Eclipse JMS Queues and Topics Tool
 
